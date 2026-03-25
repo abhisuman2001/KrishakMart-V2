@@ -79,6 +79,7 @@ const connectDB = async () => {
     });
     isConnected = true;
     console.log('✅ MongoDB Connected');
+    console.log(`📦 Database: ${mongoose.connection.name} | Host: ${mongoose.connection.host}`);
   } catch (err) {
     console.error('❌ MongoDB Error:', err.message);
     throw err;
@@ -111,7 +112,12 @@ app.get('/', (req, res) => {
   res.json({ status: 'OK', message: 'KrishakMart API is running', version: '1.0.0' });
 });
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', message: 'KrishakMart API is running' });
+  res.json({
+    status: 'OK',
+    message: 'KrishakMart API is running',
+    database: mongoose.connection.name || 'not connected',
+    dbHost: mongoose.connection.host || 'unknown',
+  });
 });
 
 // Error handling middleware
