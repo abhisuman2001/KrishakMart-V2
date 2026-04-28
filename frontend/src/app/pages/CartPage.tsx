@@ -53,7 +53,7 @@ export const CartPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6" style={{ fontFamily: "'Poppins', sans-serif" }}>
+    <div className="max-w-5xl mx-auto px-4 py-6 pb-28 lg:pb-6" style={{ fontFamily: "'Poppins', sans-serif" }}>
       <h1 className="text-2xl font-bold text-gray-900 mb-5" style={{ fontFamily: "'Montserrat', sans-serif" }}>
         My Cart <span className="text-base font-normal text-gray-400">({cart.length} item{cart.length !== 1 ? 's' : ''})</span>
       </h1>

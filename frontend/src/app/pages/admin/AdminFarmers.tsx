@@ -85,10 +85,10 @@ export const AdminFarmers: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Manage Farmers</h1>
-          <p className="text-gray-600">View and manage registered farmers on the platform</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-1">Manage Farmers</h1>
+          <p className="text-gray-600 text-sm sm:text-base">View and manage registered farmers on the platform</p>
         </div>
         <div className="bg-white px-4 py-2 rounded-lg border-2 border-green-200 shadow-sm flex items-center gap-2 w-full sm:w-auto">
           <span className="text-sm font-medium text-gray-600">Total Farmers:</span>
@@ -97,13 +97,13 @@ export const AdminFarmers: React.FC = () => {
       </div>
 
       {/* Search and Filters */}
-      <div className="bg-white p-4 rounded-xl shadow-md border-2 border-green-100 flex flex-col md:flex-row gap-4">
-        <div className="relative flex-1 min-w-0">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+      <div className="bg-white p-3 sm:p-4 rounded-xl shadow-md border-2 border-green-100">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
           <input
             type="text"
             placeholder="Search by name, email or phone..."
-            className="w-full pl-10 pr-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:outline-none transition-all"
+            className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:outline-none transition-all text-sm"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -113,75 +113,77 @@ export const AdminFarmers: React.FC = () => {
       {/* Farmers Table */}
       <div className="bg-white rounded-xl shadow-md border-2 border-green-100 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left">
+          <table className="w-full text-left min-w-[560px]">
             <thead className="bg-green-50 border-b-2 border-green-100">
               <tr>
-                <th className="px-6 py-4 font-bold text-green-800">Farmer Info</th>
-                <th className="px-6 py-4 font-bold text-green-800">Location</th>
-                <th className="px-6 py-4 font-bold text-green-800">Joined Date</th>
-                <th className="px-6 py-4 font-bold text-green-800">Status</th>
-                <th className="px-6 py-4 font-bold text-green-800 text-center">Actions</th>
+                <th className="px-4 sm:px-6 py-3 sm:py-4 font-bold text-green-800 text-sm">Farmer Info</th>
+                <th className="px-4 sm:px-6 py-3 sm:py-4 font-bold text-green-800 text-sm">Location</th>
+                <th className="px-4 sm:px-6 py-3 sm:py-4 font-bold text-green-800 text-sm">Joined</th>
+                <th className="px-4 sm:px-6 py-3 sm:py-4 font-bold text-green-800 text-sm">Status</th>
+                <th className="px-4 sm:px-6 py-3 sm:py-4 font-bold text-green-800 text-sm text-center">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y-2 divide-gray-100">
               {filteredFarmers.map((farmer) => (
                 <tr key={farmer._id} className="hover:bg-green-50/50 transition-colors">
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 bg-green-100 rounded-full flex items-center justify-center text-green-700 font-bold">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className="h-8 w-8 sm:h-10 sm:w-10 bg-green-100 rounded-full flex items-center justify-center text-green-700 font-bold text-sm flex-shrink-0">
                         {farmer.name.charAt(0)}
                       </div>
-                      <div>
-                        <p className="font-bold text-gray-800">{farmer.name}</p>
-                        <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-0.5">
+                      <div className="min-w-0">
+                        <p className="font-bold text-gray-800 text-sm truncate">{farmer.name}</p>
+                        <div className="flex items-center gap-1 text-xs text-gray-500 mt-0.5">
                           <Phone className="h-3 w-3 text-green-600 shrink-0" />
                           {farmer.phone}
                         </div>
-                        <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-0.5">
+                        <div className="flex items-center gap-1 text-xs text-gray-500 mt-0.5">
                           <Mail className="h-3 w-3 text-blue-500 shrink-0" />
-                          {farmer.email || <span className="italic text-gray-400">No email</span>}
+                          <span className="truncate max-w-[100px]">{farmer.email || <span className="italic text-gray-400">No email</span>}</span>
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-1 text-gray-600">
-                      <MapPin className="h-4 w-4" />
-                      {farmer.addresses && farmer.addresses.length > 0 
-                        ? `${farmer.addresses[0].village || ''}, ${farmer.addresses[0].district || ''}`
-                        : 'Not provided'}
+                  <td className="px-4 sm:px-6 py-3 sm:py-4">
+                    <div className="flex items-start gap-1 text-gray-600 text-xs sm:text-sm">
+                      <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0 mt-0.5" />
+                      <span className="break-words max-w-[100px]">
+                        {farmer.addresses && farmer.addresses.length > 0 
+                          ? `${farmer.addresses[0].village || ''}, ${farmer.addresses[0].district || ''}`
+                          : 'Not provided'}
+                      </span>
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-1 text-gray-600">
-                      <Calendar className="h-4 w-4" />
+                  <td className="px-4 sm:px-6 py-3 sm:py-4">
+                    <div className="flex items-center gap-1 text-gray-600 text-xs sm:text-sm">
+                      <Calendar className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
                       {new Date(farmer.createdAt).toLocaleDateString()}
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
+                  <td className="px-4 sm:px-6 py-3 sm:py-4">
+                    <span className={`px-2 sm:px-3 py-1 rounded-full text-xs font-bold uppercase ${
                       !farmer.isBlocked ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                     }`}>
                       {!farmer.isBlocked ? 'active' : 'suspended'}
                     </span>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex justify-center gap-2">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4">
+                    <div className="flex justify-center gap-1.5 sm:gap-2">
                       <button
                         onClick={() => toggleStatus(farmer._id)}
-                        className={`p-2 rounded-lg transition-colors ${
+                        className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
                           !farmer.isBlocked ? 'text-orange-600 hover:bg-orange-100' : 'text-green-600 hover:bg-green-100'
                         }`}
                         title={!farmer.isBlocked ? 'Suspend Farmer' : 'Activate Farmer'}
                       >
-                        {!farmer.isBlocked ? <Ban className="h-5 w-5" /> : <CheckCircle className="h-5 w-5" />}
+                        {!farmer.isBlocked ? <Ban className="h-4 w-4 sm:h-5 sm:w-5" /> : <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />}
                       </button>
                       <button
                         onClick={() => deleteFarmer(farmer._id)}
-                        className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
+                        className="p-1.5 sm:p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
                         title="Delete Farmer"
                       >
-                        <Trash2 className="h-5 w-5" />
+                        <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
                       </button>
                     </div>
                   </td>

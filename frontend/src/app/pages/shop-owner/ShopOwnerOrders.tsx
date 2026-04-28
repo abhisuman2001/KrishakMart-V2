@@ -104,15 +104,15 @@ export const ShopOwnerOrders: React.FC = () => {
     const distance = calculateDistance(shopLat, shopLon, farmerLat, farmerLon);
 
     return (
-      <div key={order._id} className="bg-white rounded-xl p-6 shadow-md border-2 border-green-200 hover:border-green-400 transition-all">
+      <div key={order._id} className="bg-white rounded-xl p-4 sm:p-6 shadow-md border-2 border-green-200 hover:border-green-400 transition-all">
         {/* Order Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-4 border-b border-gray-200">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-200 gap-2">
           <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">
+            <h3 className="text-base sm:text-xl font-bold text-gray-800 mb-1">
               Order #{order._id.slice(-8).toUpperCase()}
             </h3>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Calendar className="h-4 w-4" />
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
+              <Calendar className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               {new Date(order.createdAt).toLocaleDateString('en-IN', {
                 day: 'numeric',
                 month: 'short',
@@ -122,48 +122,48 @@ export const ShopOwnerOrders: React.FC = () => {
               })}
             </div>
           </div>
-          <Badge className={`${getStatusColor(order.orderStatus)} px-4 py-2 text-sm mt-3 md:mt-0`}>
+          <Badge className={`${getStatusColor(order.orderStatus)} px-3 py-1.5 text-xs sm:text-sm self-start sm:self-auto`}>
             {order.orderStatus}
           </Badge>
         </div>
 
         {/* Farmer Details */}
-        <div className="bg-green-50 rounded-lg p-4 mb-6">
-          <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
-            <User className="h-5 w-5 text-green-600" />
+        <div className="bg-green-50 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
+          <h4 className="font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
+            <User className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
             Farmer Details
           </h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
             <div>
-              <p className="text-sm text-gray-600">Name</p>
-              <p className="font-semibold text-gray-800">{order.farmerId?.name || 'N/A'}</p>
+              <p className="text-xs sm:text-sm text-gray-600">Name</p>
+              <p className="font-semibold text-gray-800 text-sm sm:text-base">{order.farmerId?.name || 'N/A'}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-600">Phone</p>
-              <p className="font-semibold text-gray-800 flex items-center gap-2">
-                <Phone className="h-4 w-4" />
+              <p className="text-xs sm:text-sm text-gray-600">Phone</p>
+              <p className="font-semibold text-gray-800 flex items-center gap-1.5 text-sm sm:text-base">
+                <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 {order.farmerId?.phone || 'N/A'}
               </p>
             </div>
-            <div className="md:col-span-2">
-              <p className="text-sm text-gray-600 mb-1">Delivery Address</p>
-              <p className="font-medium text-gray-800 flex items-start gap-2">
-                <MapPin className="h-4 w-4 mt-1 text-green-600 flex-shrink-0" />
+            <div className="sm:col-span-2">
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">Delivery Address</p>
+              <p className="font-medium text-gray-800 flex items-start gap-1.5 text-sm sm:text-base">
+                <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4 mt-0.5 text-green-600 flex-shrink-0" />
                 <span>{order.deliveryAddress?.fullAddress || 'N/A'}</span>
               </p>
             </div>
             {farmerLat && farmerLon && (
-              <div className="md:col-span-2">
-                <p className="text-sm text-gray-600 mb-1">Location Coordinates</p>
-                <p className="font-medium text-gray-700 text-sm">
+              <div className="sm:col-span-2">
+                <p className="text-xs sm:text-sm text-gray-600 mb-1">Location Coordinates</p>
+                <p className="font-medium text-gray-700 text-xs sm:text-sm">
                   Lat: {farmerLat.toFixed(6)}, Lon: {farmerLon.toFixed(6)}
                 </p>
               </div>
             )}
-            <div className="md:col-span-2">
-              <p className="text-sm text-gray-600 mb-1">Distance from Shop</p>
-              <p className="font-bold text-green-700 flex items-center gap-2 text-lg">
-                <Navigation className="h-5 w-5" />
+            <div className="sm:col-span-2">
+              <p className="text-xs sm:text-sm text-gray-600 mb-1">Distance from Shop</p>
+              <p className="font-bold text-green-700 flex items-center gap-1.5 text-base sm:text-lg">
+                <Navigation className="h-4 w-4 sm:h-5 sm:w-5" />
                 {distance}
               </p>
             </div>
@@ -171,26 +171,26 @@ export const ShopOwnerOrders: React.FC = () => {
         </div>
 
         {/* Order Items */}
-        <div className="mb-6">
-          <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
-            <Package className="h-5 w-5 text-green-600" />
+        <div className="mb-4 sm:mb-6">
+          <h4 className="font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
+            <Package className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
             Products Ordered
           </h4>
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {order.products.map((item: any, index: number) => (
-              <div key={index} className="flex gap-4 p-3 bg-gray-50 rounded-lg">
+              <div key={index} className="flex gap-3 sm:gap-4 p-2.5 sm:p-3 bg-gray-50 rounded-lg">
                 <img
                   src={getImageUrl(item.image)}
                   alt={item.productName}
-                  className="w-16 h-16 object-cover rounded-lg"
+                  className="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg flex-shrink-0"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = '/placeholder-product.svg';
                   }}
                 />
-                <div className="flex-1">
-                  <h5 className="font-semibold text-gray-800">{item.productName}</h5>
-                  <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
-                  <p className="text-sm font-semibold text-green-700">₹{item.price} × {item.quantity} = ₹{item.price * item.quantity}</p>
+                <div className="flex-1 min-w-0">
+                  <h5 className="font-semibold text-gray-800 text-sm sm:text-base truncate">{item.productName}</h5>
+                  <p className="text-xs sm:text-sm text-gray-600">Qty: {item.quantity}</p>
+                  <p className="text-xs sm:text-sm font-semibold text-green-700">₹{item.price} × {item.quantity} = ₹{item.price * item.quantity}</p>
                 </div>
               </div>
             ))}
@@ -198,25 +198,25 @@ export const ShopOwnerOrders: React.FC = () => {
         </div>
 
         {/* Order Total & Actions */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-4 border-t border-gray-200">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 pt-3 sm:pt-4 border-t border-gray-200">
           <div>
-            <p className="text-sm text-gray-600 mb-1">Total Amount</p>
-            <p className="text-2xl font-bold text-green-700">₹{order.totalAmount.toLocaleString('en-IN')}</p>
+            <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Amount</p>
+            <p className="text-xl sm:text-2xl font-bold text-green-700">₹{order.totalAmount.toLocaleString('en-IN')}</p>
           </div>
 
-          <div className="flex gap-3 flex-wrap">
+          <div className="flex gap-2 sm:gap-3 flex-wrap">
             {order.orderStatus === 'Pending' && (
               <>
                 <Button
                   onClick={() => handleAcceptOrder(order._id)}
-                  className="bg-blue-600 hover:bg-blue-700"
+                  className="bg-blue-600 hover:bg-blue-700 text-sm px-3 sm:px-4"
                 >
                   Accept Order
                 </Button>
                 <Button
                   onClick={() => handleCancelOrder(order._id)}
                   variant="outline"
-                  className="border-red-600 text-red-600 hover:bg-red-50"
+                  className="border-red-600 text-red-600 hover:bg-red-50 text-sm px-3 sm:px-4"
                 >
                   Cancel
                 </Button>
@@ -225,7 +225,7 @@ export const ShopOwnerOrders: React.FC = () => {
             {order.orderStatus === 'Accepted' && (
               <Button
                 onClick={() => handleMarkDelivered(order._id)}
-                className="bg-green-600 hover:bg-green-700"
+                className="bg-green-600 hover:bg-green-700 text-sm px-3 sm:px-4"
               >
                 Mark as Delivered
               </Button>
@@ -252,8 +252,8 @@ export const ShopOwnerOrders: React.FC = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Orders Received</h1>
-        <p className="text-gray-600">Manage orders from farmers ({orders.length} total)</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Orders Received</h1>
+        <p className="text-gray-600 text-sm sm:text-base">Manage orders from farmers ({orders.length} total)</p>
       </div>
 
       {!user?.shopLocation?.latitude || !user?.shopLocation?.longitude ? (
@@ -283,17 +283,17 @@ export const ShopOwnerOrders: React.FC = () => {
         </div>
       ) : (
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
-            <TabsTrigger value="Pending" className="text-base">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 mb-6 sm:mb-8">
+            <TabsTrigger value="Pending" className="text-xs sm:text-base">
               Pending ({pendingOrders.length})
             </TabsTrigger>
-            <TabsTrigger value="Accepted" className="text-base">
+            <TabsTrigger value="Accepted" className="text-xs sm:text-base">
               Accepted ({acceptedOrders.length})
             </TabsTrigger>
-            <TabsTrigger value="Delivered" className="text-base">
+            <TabsTrigger value="Delivered" className="text-xs sm:text-base">
               Delivered ({deliveredOrders.length})
             </TabsTrigger>
-            <TabsTrigger value="Cancelled" className="text-base">
+            <TabsTrigger value="Cancelled" className="text-xs sm:text-base">
               Cancelled ({cancelledOrders.length})
             </TabsTrigger>
           </TabsList>

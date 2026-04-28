@@ -2,18 +2,16 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Search, ShoppingCart, User, Heart, Package, LayoutDashboard,
-  LogOut, ChevronDown, Menu, X, Home, Phone, Globe, Send, MapPin,
+  LogOut, ChevronDown, Menu, X, Home, Phone, Globe, Send,
 } from 'lucide-react';
 import { Footer } from './Footer';
 import { useApp } from '../context/AppContext';
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
+import { Button } from './ui/button';
 import { translations } from '../../utils/translations';
 import { toast } from 'sonner';
-import { categories } from '../../services/productService';
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[60vh]">
@@ -57,18 +55,17 @@ export const FarmerLayout: React.FC<FarmerLayoutProps> = ({ children }) => {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
+  useEffect(() => { setMobileMenuOpen(false); }, [location.pathname]);
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
+      navigate(`/farmer/store?search=${encodeURIComponent(searchQuery.trim())}`);
       setSearchQuery('');
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
+  const handleLogout = () => { logout(); navigate('/'); };
 
   const handleSupportSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,18 +75,11 @@ export const FarmerLayout: React.FC<FarmerLayoutProps> = ({ children }) => {
     setSupportOpen(false);
   };
 
-  const navLinks = [
-    { label: t.home, path: '/farmer/store', icon: Home },
-    { label: t.myOrders, path: '/farmer/orders', icon: Package },
-    { label: t.wishlist, path: '/farmer/wishlist', icon: Heart },
-  ];
-
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* ── Top Bar ── */}
       <header className="bg-[#2f7c4f] sticky top-0 z-50 shadow-md">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
-          <div className="flex items-center gap-3 h-16">
+          <div className="flex items-center h-16 gap-2">
 
             {/* Logo */}
             <Link to="/farmer/store" className="flex items-center gap-2 shrink-0">
@@ -100,30 +90,26 @@ export const FarmerLayout: React.FC<FarmerLayoutProps> = ({ children }) => {
               </div>
             </Link>
 
-            {/* Search Bar */}
-            <form onSubmit={handleSearch} className="flex-1 max-w-2xl mx-2 sm:mx-4">
-              <div className="flex">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
+            {/* Search — sm+ only */}
+            <form onSubmit={handleSearch} className="hidden sm:flex flex-1 max-w-2xl mx-4">
+              <div className="flex w-full">
+                <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
                   placeholder="Search seeds, fertilizers, tools..."
-                  className="flex-1 px-4 py-2.5 text-sm rounded-l-lg border-0 outline-none text-gray-800 bg-white"
-                />
-                <button type="submit"
-                  className="bg-yellow-400 hover:bg-yellow-500 px-4 py-2.5 rounded-r-lg transition-colors">
+                  className="flex-1 px-4 py-2.5 text-sm rounded-l-lg border-0 outline-none text-gray-800 bg-white min-w-0" />
+                <button type="submit" className="bg-yellow-400 hover:bg-yellow-500 px-4 py-2.5 rounded-r-lg transition-colors flex-shrink-0">
                   <Search className="h-4 w-4 text-gray-800" />
                 </button>
               </div>
             </form>
 
-            {/* Right Actions */}
-            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+            {/* Spacer on mobile */}
+            <div className="flex-1 sm:hidden" />
 
-              {/* Language */}
-              <div className="relative hidden sm:block" ref={langRef}>
+            {/* Desktop/Tablet actions */}
+            <div className="hidden sm:flex items-center gap-1 md:gap-2 shrink-0">
+              <div className="relative" ref={langRef}>
                 <button onClick={() => setLangOpen(!langOpen)}
-                  className="flex items-center gap-1 text-white hover:text-green-200 transition-colors px-2 py-1.5 rounded-lg hover:bg-green-700 text-xs">
+                  className="flex items-center gap-1 text-white hover:text-green-200 px-2 py-1.5 rounded-lg hover:bg-green-700 text-xs transition-colors">
                   <Globe className="h-4 w-4" />
                   <span className="hidden md:inline">{currentLang.native}</span>
                   <ChevronDown className="h-3 w-3" />
@@ -141,38 +127,24 @@ export const FarmerLayout: React.FC<FarmerLayoutProps> = ({ children }) => {
                 )}
               </div>
 
-              {/* Support */}
               <button onClick={() => setSupportOpen(true)}
-                className="hidden sm:flex items-center gap-1 text-white hover:text-green-200 px-2 py-1.5 rounded-lg hover:bg-green-700 transition-colors text-xs">
+                className="flex items-center gap-1 text-white hover:text-green-200 px-2 py-1.5 rounded-lg hover:bg-green-700 text-xs transition-colors">
                 <Phone className="h-4 w-4" />
                 <span className="hidden md:inline">{t.support}</span>
               </button>
 
-              {/* Wishlist */}
-              <Link to="/farmer/wishlist"
-                className="relative flex items-center gap-1 text-white hover:text-green-200 px-2 py-1.5 rounded-lg hover:bg-green-700 transition-colors">
+              <Link to="/farmer/wishlist" className="relative flex items-center gap-1 text-white hover:text-green-200 px-2 py-1.5 rounded-lg hover:bg-green-700 transition-colors">
                 <Heart className="h-5 w-5" />
-                {wishlist.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">
-                    {wishlist.length}
-                  </span>
-                )}
+                {wishlist.length > 0 && <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">{wishlist.length}</span>}
                 <span className="hidden md:inline text-xs">Wishlist</span>
               </Link>
 
-              {/* Cart */}
-              <Link to="/cart"
-                className="relative flex items-center gap-1 text-white hover:text-green-200 px-2 py-1.5 rounded-lg hover:bg-green-700 transition-colors">
+              <Link to="/cart" className="relative flex items-center gap-1 text-white hover:text-green-200 px-2 py-1.5 rounded-lg hover:bg-green-700 transition-colors">
                 <ShoppingCart className="h-5 w-5" />
-                {cart.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-yellow-400 text-gray-900 text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">
-                    {cart.length}
-                  </span>
-                )}
+                {cart.length > 0 && <span className="absolute -top-1 -right-1 bg-yellow-400 text-gray-900 text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">{cart.length}</span>}
                 <span className="hidden md:inline text-xs">{t.myCart}</span>
               </Link>
 
-              {/* Profile Dropdown */}
               <div className="relative" ref={profileRef}>
                 <button onClick={() => setProfileOpen(!profileOpen)}
                   className="flex items-center gap-1.5 text-white hover:text-green-200 px-2 py-1.5 rounded-lg hover:bg-green-700 transition-colors">
@@ -185,22 +157,17 @@ export const FarmerLayout: React.FC<FarmerLayoutProps> = ({ children }) => {
                   </div>
                   <ChevronDown className="h-3 w-3 hidden md:block" />
                 </button>
-
                 {profileOpen && (
                   <div className="absolute right-0 mt-2 w-60 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 overflow-hidden">
-                    {/* User info */}
                     <div className="bg-gradient-to-r from-green-600 to-green-700 px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center text-gray-900 font-bold">
-                          {user?.name?.charAt(0).toUpperCase()}
-                        </div>
+                        <div className="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center text-gray-900 font-bold">{user?.name?.charAt(0).toUpperCase()}</div>
                         <div>
                           <p className="text-white font-semibold text-sm">{user?.name}</p>
                           <p className="text-green-200 text-xs">{user?.phone}</p>
                         </div>
                       </div>
                     </div>
-
                     <div className="py-1">
                       {[
                         { icon: LayoutDashboard, label: 'My Dashboard', path: '/farmer/dashboard' },
@@ -209,71 +176,121 @@ export const FarmerLayout: React.FC<FarmerLayoutProps> = ({ children }) => {
                         { icon: ShoppingCart, label: t.myCart, path: '/cart' },
                         { icon: User, label: 'Profile', path: '/farmer/profile' },
                       ].map(item => (
-                        <button key={item.path}
-                          onClick={() => { navigate(item.path); setProfileOpen(false); }}
+                        <button key={item.path} onClick={() => { navigate(item.path); setProfileOpen(false); }}
                           className={`flex items-center gap-3 w-full px-4 py-2.5 text-sm transition-colors ${location.pathname === item.path ? 'bg-green-50 text-green-700 font-medium' : 'text-gray-700 hover:bg-gray-50'}`}>
-                          <item.icon className="h-4 w-4" />
-                          {item.label}
+                          <item.icon className="h-4 w-4" /> {item.label}
                         </button>
                       ))}
                       <div className="border-t border-gray-100 my-1" />
-                      <button onClick={handleLogout}
-                        className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
-                        <LogOut className="h-4 w-4" />
-                        {t.logout}
+                      <button onClick={handleLogout} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                        <LogOut className="h-4 w-4" /> {t.logout}
                       </button>
                     </div>
                   </div>
                 )}
               </div>
+            </div>
 
-              {/* Mobile menu toggle */}
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden text-white p-1.5 rounded-lg hover:bg-green-700 transition-colors">
-                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {/* Mobile: cart + hamburger */}
+            <div className="flex sm:hidden items-center gap-1 shrink-0">
+              <Link to="/cart" className="relative text-white p-1.5 rounded-lg hover:bg-green-700 transition-colors">
+                <ShoppingCart className="h-5 w-5" />
+                {cart.length > 0 && <span className="absolute -top-0.5 -right-0.5 bg-yellow-400 text-gray-900 text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">{cart.length}</span>}
+              </Link>
+              <button onClick={() => setMobileMenuOpen(v => !v)} className="text-white p-1.5 rounded-lg hover:bg-green-700 transition-colors">
+                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
             </div>
           </div>
         </div>
 
+        {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-[#236240] border-t border-green-600 px-4 py-3 space-y-1">
-            {navLinks.map(link => (
-              <Link key={link.path} to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${location.pathname === link.path ? 'bg-white text-green-700' : 'text-green-100 hover:bg-green-700'}`}>
-                <link.icon className="h-4 w-4" /> {link.label}
-              </Link>
-            ))}
-            <button onClick={() => { setSupportOpen(true); setMobileMenuOpen(false); }}
-              className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-green-100 hover:bg-green-700 transition-colors">
-              <Phone className="h-4 w-4" /> {t.support}
-            </button>
+          <div className="sm:hidden bg-[#236240] border-t border-green-600">
+            {/* Mobile search */}
+            <div className="px-4 pt-3 pb-2">
+              <form onSubmit={(e) => { handleSearch(e); setMobileMenuOpen(false); }} className="flex">
+                <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="Search products..."
+                  className="flex-1 px-3 py-2.5 text-sm rounded-l-lg border-0 outline-none text-gray-800 bg-white min-w-0" />
+                <button type="submit" className="bg-yellow-400 hover:bg-yellow-500 px-3 py-2.5 rounded-r-lg transition-colors flex-shrink-0">
+                  <Search className="h-4 w-4 text-gray-800" />
+                </button>
+              </form>
+            </div>
+
+            {/* User strip */}
+            <div className="mx-4 mb-2 bg-green-700/50 rounded-xl px-3 py-2.5 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-gray-900 font-bold text-sm flex-shrink-0">
+                {user?.name?.charAt(0).toUpperCase()}
+              </div>
+              <div className="min-w-0">
+                <p className="text-white font-semibold text-sm truncate">{user?.name}</p>
+                <p className="text-green-300 text-xs">🧑‍🌾 Farmer</p>
+              </div>
+            </div>
+
+            <nav className="px-4 pb-3 space-y-1">
+              {[
+                { icon: Home, label: 'Store', path: '/farmer/store', badge: 0 },
+                { icon: LayoutDashboard, label: 'Dashboard', path: '/farmer/dashboard', badge: 0 },
+                { icon: Package, label: t.myOrders, path: '/farmer/orders', badge: 0 },
+                { icon: Heart, label: 'Wishlist', path: '/farmer/wishlist', badge: wishlist.length },
+                { icon: User, label: 'Profile', path: '/farmer/profile', badge: 0 },
+              ].map(item => (
+                <Link key={item.path} to={item.path} onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${location.pathname === item.path ? 'bg-white text-green-700' : 'text-green-100 hover:bg-green-700'}`}>
+                  <item.icon className="h-4 w-4 flex-shrink-0" />
+                  <span className="flex-1">{item.label}</span>
+                  {item.badge > 0 && <span className="bg-red-500 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">{item.badge}</span>}
+                </Link>
+              ))}
+
+              <div className="border-t border-green-600 pt-2 mt-1">
+                <p className="text-green-300 text-xs px-3 mb-1.5">Language</p>
+                <div className="flex gap-2 px-3">
+                  {LANGUAGES.map(lang => (
+                    <button key={lang.code} onClick={() => { setLanguage(lang.code); setMobileMenuOpen(false); }}
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${language === lang.code ? 'bg-white text-green-700' : 'text-green-100 hover:bg-green-700'}`}>
+                      {lang.native}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <button onClick={() => { setSupportOpen(true); setMobileMenuOpen(false); }}
+                className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-green-100 hover:bg-green-700 transition-colors">
+                <Phone className="h-4 w-4" /> {t.support}
+              </button>
+
+              <div className="border-t border-green-600 pt-1 mt-1">
+                <button onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
+                  className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-red-300 hover:bg-red-900/30 transition-colors">
+                  <LogOut className="h-4 w-4" /> {t.logout}
+                </button>
+              </div>
+            </nav>
           </div>
         )}
       </header>
 
-      {/* ── Main Content ── */}
       <main className="flex-1">
         <Suspense fallback={<LoadingFallback />}>
           {children}
         </Suspense>
       </main>
 
-      {/* ── Footer ── */}
       <Footer />
 
-      {/* ── Support Dialog ── */}
+      {/* Support Dialog */}
       {supportOpen && (
         <>
           <div className="fixed inset-0 bg-black/40 z-50" onClick={() => setSupportOpen(false)} />
-          <div className="fixed inset-x-4 top-20 md:right-6 md:left-auto md:w-96 z-50">
+          <div className="fixed inset-x-4 top-20 sm:right-6 sm:left-auto sm:w-96 z-50">
             <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
               <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-green-600 to-green-700">
                 <h2 className="text-white font-bold">{t.sendMessage}</h2>
-                <button onClick={() => setSupportOpen(false)} className="text-green-200 hover:text-white">
-                  <X className="h-5 w-5" />
-                </button>
+                <button onClick={() => setSupportOpen(false)} className="text-green-200 hover:text-white"><X className="h-5 w-5" /></button>
               </div>
               <form onSubmit={handleSupportSubmit} className="p-5 space-y-4">
                 <div>
