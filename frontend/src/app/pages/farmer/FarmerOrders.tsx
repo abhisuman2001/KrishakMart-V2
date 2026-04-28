@@ -155,44 +155,44 @@ export const FarmerOrders: React.FC = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">{t.myOrdersTitle}</h1>
-        <p className="text-gray-600">{t.trackOrders} ({orders.length} {t.total})</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">{t.myOrdersTitle}</h1>
+        <p className="text-gray-600 text-sm sm:text-base">{t.trackOrders} ({orders.length} {t.total})</p>
       </div>
 
       {orders.length === 0 ? (
         <div className="text-center py-12 bg-white rounded-xl border-2 border-green-200">
-          <p className="text-xl text-gray-600">{t.noOrdersYet}</p>
+          <p className="text-lg sm:text-xl text-gray-600">{t.noOrdersYet}</p>
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {orders.map((order) => (
-            <div key={order._id} className="bg-white rounded-xl p-6 shadow-md border-2 border-green-200">
+            <div key={order._id} className="bg-white rounded-xl p-4 sm:p-6 shadow-md border-2 border-green-200">
               {/* Order Header */}
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-4 border-b border-gray-200">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-200 gap-2 sm:gap-0">
                 <div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">Order #{order._id.slice(-8)}</h3>
-                  <p className="text-sm text-gray-600">{t.placedOn} {new Date(order.createdAt).toLocaleDateString()}</p>
+                  <h3 className="text-base sm:text-xl font-bold text-gray-800 mb-1">Order #{order._id.slice(-8)}</h3>
+                  <p className="text-xs sm:text-sm text-gray-600">{t.placedOn} {new Date(order.createdAt).toLocaleDateString()}</p>
                 </div>
-                <Badge className={`${getStatusColor(order.orderStatus)} flex items-center gap-2 px-4 py-2 text-sm`}>
+                <Badge className={`${getStatusColor(order.orderStatus)} flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm self-start sm:self-auto`}>
                   {getStatusIcon(order.orderStatus)}
                   {order.orderStatus}
                 </Badge>
               </div>
 
               {/* Order Items */}
-              <div className="space-y-4 mb-6">
+              <div className="space-y-4 mb-4 sm:mb-6">
                 {order.products.map((item, index) => (
                   <div key={index}>
-                    <div className="flex gap-4">
+                    <div className="flex gap-3 sm:gap-4">
                       <img
                         src={getImageUrl(item.image)}
                         alt={item.productName}
-                        className="w-20 h-20 object-cover rounded-lg"
+                        className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg flex-shrink-0"
                         onError={(e) => { (e.target as HTMLImageElement).src = '/placeholder-product.svg'; }}
                       />
-                      <div className="flex-1">
-                        <h4 className="font-semibold text-gray-800">{item.productName}</h4>
-                        <p className="text-sm text-gray-600">{t.quantity}: {item.quantity}</p>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-gray-800 text-sm sm:text-base truncate">{item.productName}</h4>
+                        <p className="text-xs sm:text-sm text-gray-600">{t.quantity}: {item.quantity}</p>
                         <p className="text-sm font-semibold text-green-700">₹{item.price * item.quantity}</p>
                       </div>
                     </div>
@@ -210,23 +210,23 @@ export const FarmerOrders: React.FC = () => {
               </div>
 
               {/* Order Footer */}
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center pt-4 border-t border-gray-200 gap-4">
-                <div className="flex-1">
-                  <p className="text-sm text-gray-600">{t.deliveryAddress}</p>
-                  <p className="font-medium text-gray-800">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pt-3 sm:pt-4 border-t border-gray-200 gap-3 sm:gap-4">
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs sm:text-sm text-gray-600">{t.deliveryAddress}</p>
+                  <p className="font-medium text-gray-800 text-sm sm:text-base break-words">
                     {typeof order.deliveryAddress === 'string'
                       ? order.deliveryAddress
                       : order.deliveryAddress?.fullAddress || 'N/A'}
                   </p>
                   {order.deliveryAddress?.phone && (
-                    <p className="text-sm text-gray-600 mt-1">Phone: {order.deliveryAddress.phone}</p>
+                    <p className="text-xs sm:text-sm text-gray-600 mt-1">Phone: {order.deliveryAddress.phone}</p>
                   )}
                 </div>
-                <div className="text-right">
-                  <p className="text-sm text-gray-600">{t.paymentMethod}</p>
-                  <p className="font-medium text-gray-800 mb-2">{order.paymentMethod}</p>
-                  <p className="text-sm text-gray-600">{t.totalAmount}</p>
-                  <p className="text-2xl font-bold text-green-700">₹{order.totalAmount}</p>
+                <div className="text-left sm:text-right flex-shrink-0">
+                  <p className="text-xs sm:text-sm text-gray-600">{t.paymentMethod}</p>
+                  <p className="font-medium text-gray-800 mb-1 sm:mb-2 text-sm">{order.paymentMethod}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">{t.totalAmount}</p>
+                  <p className="text-xl sm:text-2xl font-bold text-green-700">₹{order.totalAmount}</p>
                 </div>
               </div>
             </div>

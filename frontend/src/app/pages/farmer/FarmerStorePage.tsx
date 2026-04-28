@@ -55,28 +55,28 @@ export const FarmerStorePage: React.FC = () => {
     <div className="bg-gray-50 min-h-screen">
 
       {/* ── Hero Banner ── */}
-      <div className="bg-gradient-to-r from-[#2f7c4f] via-[#236240] to-[#1a4d30] text-white py-8 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="bg-gradient-to-r from-[#2f7c4f] via-[#236240] to-[#1a4d30] text-white py-6 sm:py-8 px-4">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-1">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1">
               Welcome back, {user?.name?.split(' ')[0]} 👋
             </h1>
-            <p className="text-green-200 text-sm md:text-base">
+            <p className="text-green-200 text-xs sm:text-sm md:text-base">
               Discover quality farming products at the best prices
             </p>
           </div>
-          <div className="flex gap-3">
-            <div className="bg-white/10 backdrop-blur rounded-xl px-4 py-3 text-center">
-              <Truck className="h-5 w-5 mx-auto mb-1 text-yellow-300" />
-              <p className="text-xs font-medium">Fast Delivery</p>
+          <div className="flex gap-2 sm:gap-3">
+            <div className="bg-white/10 backdrop-blur rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-center">
+              <Truck className="h-4 w-4 sm:h-5 sm:w-5 mx-auto mb-1 text-yellow-300" />
+              <p className="text-[10px] sm:text-xs font-medium">Fast Delivery</p>
             </div>
-            <div className="bg-white/10 backdrop-blur rounded-xl px-4 py-3 text-center">
-              <Shield className="h-5 w-5 mx-auto mb-1 text-yellow-300" />
-              <p className="text-xs font-medium">Genuine Products</p>
+            <div className="bg-white/10 backdrop-blur rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-center">
+              <Shield className="h-4 w-4 sm:h-5 sm:w-5 mx-auto mb-1 text-yellow-300" />
+              <p className="text-[10px] sm:text-xs font-medium">Genuine</p>
             </div>
-            <div className="bg-white/10 backdrop-blur rounded-xl px-4 py-3 text-center">
-              <Tag className="h-5 w-5 mx-auto mb-1 text-yellow-300" />
-              <p className="text-xs font-medium">Best Prices</p>
+            <div className="bg-white/10 backdrop-blur rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-center">
+              <Tag className="h-4 w-4 sm:h-5 sm:w-5 mx-auto mb-1 text-yellow-300" />
+              <p className="text-[10px] sm:text-xs font-medium">Best Prices</p>
             </div>
           </div>
         </div>
@@ -98,19 +98,19 @@ export const FarmerStorePage: React.FC = () => {
               View All →
             </button>
           </div>
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3">
             {categories.map(cat => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`group flex flex-col items-center gap-2 p-4 rounded-xl border transition-all duration-200 text-center ${
+                className={`group flex flex-col items-center gap-1 sm:gap-2 p-2.5 sm:p-4 rounded-xl border transition-all duration-200 text-center ${
                   selectedCategory === cat.id
                     ? 'border-green-400 bg-gradient-to-b from-green-100 to-white shadow-md'
                     : 'border-green-100 bg-gradient-to-b from-green-50 to-white hover:border-green-400 hover:shadow-md'
                 }`}
               >
-                <span className="text-3xl group-hover:scale-110 transition-transform duration-200 leading-none">{cat.icon}</span>
-                <span className={`text-xs font-semibold leading-tight transition-colors ${selectedCategory === cat.id ? 'text-green-700' : 'text-gray-700 group-hover:text-green-700'}`}>
+                <span className="text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-200 leading-none">{cat.icon}</span>
+                <span className={`text-[10px] sm:text-xs font-semibold leading-tight transition-colors ${selectedCategory === cat.id ? 'text-green-700' : 'text-gray-700 group-hover:text-green-700'}`}>
                   {cat.name}
                 </span>
               </button>
