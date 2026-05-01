@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { Truck, Shield, Tag } from 'lucide-react';
+import { Truck, Shield, Tag, Sprout } from 'lucide-react';
 import { getProducts, Product, categories } from '../../../services/productService';
 import { useApp } from '../../context/AppContext';
 import { translations } from '../../../utils/translations';
@@ -109,7 +109,9 @@ export const FarmerStorePage: React.FC = () => {
                     : 'border-green-100 bg-gradient-to-b from-green-50 to-white hover:border-green-400 hover:shadow-md'
                 }`}
               >
-                <span className="text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-200 leading-none">{cat.icon}</span>
+                <div className={`w-10 h-10 ${cat.bg} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200`}>
+                  <cat.icon className={`h-5 w-5 ${cat.color}`} />
+                </div>
                 <span className={`text-[10px] sm:text-xs font-semibold leading-tight transition-colors ${selectedCategory === cat.id ? 'text-green-700' : 'text-gray-700 group-hover:text-green-700'}`}>
                   {cat.name}
                 </span>
@@ -146,7 +148,9 @@ export const FarmerStorePage: React.FC = () => {
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-xl border border-gray-200">
-            <div className="text-5xl mb-4">🌾</div>
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Sprout className="h-8 w-8 text-green-500" />
+            </div>
             <h3 className="text-lg font-semibold text-gray-700 mb-2">No products found</h3>
             <p className="text-gray-500 text-sm mb-4">Try adjusting your search or filters</p>
             <button onClick={() => { setSelectedCategory('all'); setSearchQuery(''); }}

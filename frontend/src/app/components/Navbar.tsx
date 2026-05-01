@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   ShoppingCart, User, Menu, Phone, Globe, ShoppingBag,
   Heart, Settings, X, Send, ChevronDown, LayoutDashboard,
-  Package, LogOut, Home, Store, Search,
+  Package, LogOut, Home, Store, Search, Tractor, ShieldCheck,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { Button } from './ui/button';
@@ -233,14 +233,18 @@ export const Navbar: React.FC = () => {
                         <div className="flex-1 min-w-0">
                           <p className="text-white font-semibold text-sm truncate">{user?.name}</p>
                           <p className="text-green-200 text-xs">{user?.phone}</p>
-                          <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full mt-1 ${
+                          <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full mt-1 ${
                             user?.role === 'admin'
                               ? 'bg-red-500 text-white'
                               : user?.role === 'shopOwner'
                               ? 'bg-yellow-400 text-gray-900'
                               : 'bg-green-900 text-green-100'
                           }`}>
-                            {user?.role === 'shopOwner' ? '🏪 Shop Owner' : user?.role === 'admin' ? '🛡️ Admin' : '🧑‍🌾 Farmer'}
+                            {user?.role === 'shopOwner'
+                              ? <><Store className="h-2.5 w-2.5" /> Shop Owner</>
+                              : user?.role === 'admin'
+                              ? <><ShieldCheck className="h-2.5 w-2.5" /> Admin</>
+                              : <><Tractor className="h-2.5 w-2.5" /> Farmer</>}
                           </span>
                         </div>
                       </div>

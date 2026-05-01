@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, ShoppingCart } from 'lucide-react';
+import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, ShoppingCart, CheckCircle, Truck, Banknote } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { toast } from 'sonner';
 import { getFirstImage } from '../../utils/imageUtils';
@@ -194,10 +194,17 @@ export const CartPage: React.FC = () => {
               <p className="text-xs text-center text-gray-400">Select items above to proceed</p>
             )}
 
-            <div className="bg-green-50 rounded-xl px-3 py-2.5 text-xs text-gray-600 text-center space-y-0.5">
-              <p>✓ 100% Genuine Products</p>
-              <p>✓ Free Delivery</p>
-              <p>✓ Cash on Delivery Available</p>
+            <div className="bg-green-50 rounded-xl px-3 py-2.5 text-xs text-gray-600 space-y-1.5">
+              {[
+                { icon: CheckCircle, label: '100% Genuine Products' },
+                { icon: Truck,       label: 'Free Delivery' },
+                { icon: Banknote,    label: 'Cash on Delivery Available' },
+              ].map(({ icon: Icon, label }) => (
+                <div key={label} className="flex items-center gap-2">
+                  <Icon className="h-3.5 w-3.5 text-green-600 flex-shrink-0" />
+                  <span>{label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

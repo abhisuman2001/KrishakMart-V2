@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Search, ShoppingBag, Store, ArrowRight, CheckCircle,
   Package, Clock, Truck, Shield, Tag, Zap,
+  UserPlus, ShoppingCart, Home, Tractor, Sprout, Gift,
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { categories, getProducts, getSellerProducts, Product } from '../../services/productService';
@@ -222,7 +223,9 @@ export const HomePage: React.FC = () => {
             {categories.map(cat => (
               <Link key={cat.id} to={`/shop?category=${cat.id}`}>
                 <div className="bg-gradient-to-b from-green-50 to-white rounded-xl border border-green-100 p-2.5 sm:p-4 text-center hover:border-green-400 hover:shadow-md transition-all duration-200 group cursor-pointer">
-                  <div className="text-2xl sm:text-3xl mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-200">{cat.icon}</div>
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 ${cat.bg} rounded-xl flex items-center justify-center mx-auto mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-200`}>
+                    <cat.icon className={`h-5 w-5 sm:h-6 sm:w-6 ${cat.color}`} />
+                  </div>
                   <p className="text-[10px] sm:text-xs font-semibold text-gray-700 group-hover:text-green-700 transition-colors leading-tight">{cat.name}</p>
                 </div>
               </Link>
@@ -258,7 +261,9 @@ export const HomePage: React.FC = () => {
             </div>
           ) : products.length === 0 ? (
             <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
-              <div className="text-5xl mb-4">🌾</div>
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Sprout className="h-8 w-8 text-green-500" />
+              </div>
               <p className="text-gray-600">No products available yet</p>
             </div>
           ) : (
@@ -280,14 +285,19 @@ export const HomePage: React.FC = () => {
 
       {/* ── Seasonal Offer Banner ── */}
       <section className="py-8 sm:py-10 bg-gradient-to-r from-[#b87a47] to-[#855132]">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 text-center sm:text-left">
-          <div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1">🎉 Seasonal Sale — Up to 30% Off!</h2>
-            <p className="text-white/90 text-sm sm:text-base">Special discounts on seeds and fertilizers this season</p>
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
+              <Gift className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1">Seasonal Sale — Up to 30% Off!</h2>
+              <p className="text-white/90 text-sm sm:text-base">Special discounts on seeds and fertilizers this season</p>
+            </div>
           </div>
           <Link to="/signup/farmer" className="flex-shrink-0">
             <Button size="lg" className="bg-white text-[#b87a47] hover:bg-[#f5ede3] font-semibold px-6 sm:px-8 py-4 sm:py-5">
-              Sign Up & Shop Now
+              Sign Up &amp; Shop Now
             </Button>
           </Link>
         </div>
@@ -302,14 +312,14 @@ export const HomePage: React.FC = () => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 mb-8 sm:mb-12">
             {[
-              { step: '1', title: 'Create Account', desc: 'Sign up as a farmer for free', icon: '👤' },
-              { step: '2', title: 'Browse Products', desc: 'Search and select farming supplies', icon: '🔍' },
-              { step: '3', title: 'Add to Cart', desc: 'Choose quantity and place order', icon: '🛒' },
-              { step: '4', title: 'Receive at Home', desc: 'Get products at your doorstep', icon: '🏠' },
+              { step: '1', title: 'Create Account',   desc: 'Sign up as a farmer for free',          icon: UserPlus },
+              { step: '2', title: 'Browse Products',  desc: 'Search and select farming supplies',    icon: Search },
+              { step: '3', title: 'Add to Cart',      desc: 'Choose quantity and place order',       icon: ShoppingCart },
+              { step: '4', title: 'Receive at Home',  desc: 'Get products at your doorstep',         icon: Home },
             ].map(item => (
               <div key={item.step} className="text-center group">
-                <div className="bg-white text-[#2f7c4f] rounded-full w-14 h-14 sm:w-20 sm:h-20 flex items-center justify-center text-2xl sm:text-3xl font-bold mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-200 shadow-lg">
-                  {item.icon}
+                <div className="bg-white text-[#2f7c4f] rounded-full w-14 h-14 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-200 shadow-lg">
+                  <item.icon className="h-6 w-6 sm:h-8 sm:w-8 text-[#2f7c4f]" />
                 </div>
                 <div className="bg-white/10 rounded-xl p-3 sm:p-4">
                   <div className="text-yellow-300 font-bold text-xs sm:text-sm mb-1">Step {item.step}</div>
@@ -322,12 +332,12 @@ export const HomePage: React.FC = () => {
           <div className="text-center flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link to="/signup/farmer">
               <Button size="lg" className="w-full sm:w-auto bg-white text-[#2f7c4f] hover:bg-green-50 hover:scale-105 transition-all duration-300 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 font-bold shadow-lg gap-2">
-                🧑‍🌾 Sign Up as Farmer
+                <Tractor className="h-5 w-5" /> Sign Up as Farmer
               </Button>
             </Link>
             <Link to="/become-seller">
               <Button size="lg" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-gray-900 hover:scale-105 transition-all duration-300 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 font-bold shadow-lg gap-2">
-                🏪 Become a Seller
+                <Store className="h-5 w-5" /> Become a Seller
               </Button>
             </Link>
           </div>

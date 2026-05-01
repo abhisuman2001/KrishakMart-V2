@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Package, IndianRupee, FileText, ImagePlus, Save, ArrowLeft, Tag, Layers, BookOpen } from 'lucide-react';
+import { Package, IndianRupee, FileText, ImagePlus, Save, ArrowLeft, Tag, Layers, BookOpen, Info } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
@@ -79,9 +79,10 @@ export const AdminAddProduct: React.FC = () => {
 
       <form onSubmit={handleSubmit} className="max-w-3xl">
         {/* Notice */}
-        <div className="bg-green-50 border border-green-200 rounded-xl px-4 py-3 mb-5">
+        <div className="bg-green-50 border border-green-200 rounded-xl px-4 py-3 mb-5 flex items-start gap-2">
+          <Info className="h-4 w-4 text-green-700 flex-shrink-0 mt-0.5" />
           <p className="text-sm text-green-800 font-medium">
-            📢 This product will be listed with "Platform Official" as the seller.
+            This product will be listed with "Platform Official" as the seller.
           </p>
         </div>
 
@@ -116,7 +117,10 @@ export const AdminAddProduct: React.FC = () => {
                   <SelectContent>
                     {categories.map((cat) => (
                       <SelectItem key={cat.id} value={cat.id}>
-                        {cat.icon} {cat.name}
+                        <span className="flex items-center gap-2">
+                          <cat.icon className={`h-4 w-4 ${cat.color}`} />
+                          {cat.name}
+                        </span>
                       </SelectItem>
                     ))}
                   </SelectContent>
