@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   Store, DollarSign, Users, TrendingUp, CheckCircle,
   ArrowRight, Package, BarChart3, Bell, ShieldCheck, Headphones, Zap,
+  Tractor, Gift, ClipboardList, Banknote,
 } from 'lucide-react';
 
 export const BecomeSellerPage: React.FC = () => {
@@ -47,13 +48,15 @@ export const BecomeSellerPage: React.FC = () => {
             {/* Stats card */}
             <div className="flex-shrink-0 grid grid-cols-2 gap-4 w-full md:w-auto">
               {[
-                { value: '1000+', label: 'Active Farmers', icon: '👨‍🌾' },
-                { value: '3x', label: 'Revenue Growth', icon: '📈' },
-                { value: '₹0', label: 'Registration Fee', icon: '🎉' },
-                { value: '24/7', label: 'Seller Support', icon: '🛎️' },
+                { value: '1000+', label: 'Active Farmers',   icon: Tractor,      color: 'bg-green-400/20 text-green-200' },
+                { value: '3x',    label: 'Revenue Growth',   icon: TrendingUp,   color: 'bg-blue-400/20 text-blue-200' },
+                { value: '₹0',    label: 'Registration Fee', icon: Gift,         color: 'bg-yellow-400/20 text-yellow-200' },
+                { value: '24/7',  label: 'Seller Support',   icon: Headphones,   color: 'bg-purple-400/20 text-purple-200' },
               ].map(stat => (
                 <div key={stat.label} className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-5 text-center">
-                  <div className="text-3xl mb-1">{stat.icon}</div>
+                  <div className={`w-10 h-10 ${stat.color} rounded-xl flex items-center justify-center mx-auto mb-2`}>
+                    <stat.icon className="h-5 w-5" />
+                  </div>
                   <div className="text-2xl font-bold text-white">{stat.value}</div>
                   <div className="text-green-200 text-xs mt-0.5">{stat.label}</div>
                 </div>
@@ -101,14 +104,14 @@ export const BecomeSellerPage: React.FC = () => {
             <div className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-green-200 via-green-400 to-green-200" />
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {[
-                { step: '01', icon: '📝', title: 'Register Free', desc: 'Sign up with your shop name, address, and basic details. No documents needed.' },
-                { step: '02', icon: '📦', title: 'List Products', desc: 'Add your farming products with photos, prices, and stock quantity.' },
-                { step: '03', icon: '🔔', title: 'Get Orders', desc: 'Receive instant notifications when farmers place orders from your shop.' },
-                { step: '04', icon: '💰', title: 'Earn & Grow', desc: 'Deliver products, collect payments, and watch your business grow.' },
-              ].map(({ step, icon, title, desc }) => (
+                { step: '01', icon: ClipboardList, title: 'Register Free',  desc: 'Sign up with your shop name, address, and basic details. No documents needed.' },
+                { step: '02', icon: Package,       title: 'List Products',  desc: 'Add your farming products with photos, prices, and stock quantity.' },
+                { step: '03', icon: Bell,          title: 'Get Orders',     desc: 'Receive instant notifications when farmers place orders from your shop.' },
+                { step: '04', icon: Banknote,      title: 'Earn & Grow',    desc: 'Deliver products, collect payments, and watch your business grow.' },
+              ].map(({ step, icon: Icon, title, desc }) => (
                 <div key={step} className="relative text-center group">
-                  <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-200 relative z-10">
-                    {icon}
+                  <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-200 relative z-10">
+                    <Icon className="h-9 w-9 text-white" />
                   </div>
                   <div className="text-xs font-bold text-green-600 mb-1">STEP {step}</div>
                   <h3 className="text-lg font-bold text-gray-800 mb-2">{title}</h3>
@@ -178,7 +181,9 @@ export const BecomeSellerPage: React.FC = () => {
       {/* ── Final CTA ── */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <div className="text-5xl mb-4">🌾</div>
+          <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <Tractor className="h-8 w-8 text-green-600" />
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
             India's farmers are waiting for you
           </h2>

@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AppProvider, useApp } from './context/AppContext';
 import { Toaster } from './components/ui/sonner';
+import { AlertTriangle } from 'lucide-react';
 
 // Layout Components (keep these as regular imports)
 import { Navbar } from './components/Navbar';
@@ -26,7 +27,9 @@ class ErrorBoundary extends React.Component<
       return (
         <div className="flex items-center justify-center min-h-screen bg-gray-50">
           <div className="text-center p-8 bg-white rounded-2xl shadow-md border border-red-100 max-w-md">
-            <div className="text-4xl mb-4">⚠️</div>
+            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <AlertTriangle className="h-8 w-8 text-red-500" />
+            </div>
             <h2 className="text-xl font-bold text-gray-800 mb-2">Something went wrong</h2>
             <p className="text-gray-500 text-sm mb-4">{this.state.error?.message}</p>
             <button

@@ -4,6 +4,7 @@ import {
   User, Phone, Mail, Lock, Store, FileText, Globe, ChevronDown,
   Eye, EyeOff, CheckCircle, AlertCircle, ArrowRight, ArrowLeft,
   Tractor, Leaf, MapPin, X, ShieldCheck, Navigation,
+  Sprout, Wrench, Droplets, FlaskConical, Package, BarChart3, Truck,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { toast } from 'sonner';
@@ -35,7 +36,7 @@ const OtpModal: React.FC<OtpModalProps> = ({ type, target, onVerified, onClose }
     setMockOtp(otp);
     setCountdown(30);
     setCanResend(false);
-    toast.info(`🔐 Your KrishakMart OTP is: ${otp}`, { duration: 10000 });
+    toast.info(`Your KrishakMart OTP is: ${otp}`, { duration: 10000 });
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       setCountdown(c => {
@@ -302,7 +303,9 @@ const SuccessOverlay: React.FC<{ name: string; isFarmer: boolean }> = ({ name, i
   <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm">
     <div className="bg-white rounded-3xl p-10 text-center shadow-2xl max-w-sm mx-4">
       <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 ${isFarmer ? 'bg-green-100' : 'bg-amber-100'}`}>
-        <span className="text-4xl">{isFarmer ? '🌾' : '🏪'}</span>
+        {isFarmer
+          ? <Tractor className="h-10 w-10 text-green-600" />
+          : <Store className="h-10 w-10 text-amber-600" />}
       </div>
       <h2 className="text-2xl font-extrabold text-gray-800 mb-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>
         Welcome to the Family!
@@ -399,7 +402,7 @@ const FarmerSignup: React.FC<{
             </div>
           </div>
           <p className="text-white text-2xl font-bold leading-snug" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-            Join 10,000+<br /><span className="text-yellow-300">Farmers Today! 🌾</span>
+            Join 10,000+<br /><span className="text-yellow-300">Farmers Today!</span>
           </p>
           <p className="text-white/80 text-sm mt-3 leading-relaxed">
             Get access to quality seeds, fertilizers, tools and more — at the best prices, delivered to your farm.
@@ -413,8 +416,15 @@ const FarmerSignup: React.FC<{
             ))}
           </div>
           <div className="flex flex-wrap justify-center gap-2 mt-6">
-            {['🌱 Fresh Seeds', '🔧 Farm Tools', '💧 Irrigation', '🌿 Fertilizers'].map(tag => (
-              <span key={tag} className="bg-white/20 text-white text-xs px-3 py-1.5 rounded-full">{tag}</span>
+            {[
+              { icon: Sprout,      label: 'Fresh Seeds' },
+              { icon: Wrench,      label: 'Farm Tools' },
+              { icon: Droplets,    label: 'Irrigation' },
+              { icon: FlaskConical,label: 'Fertilizers' },
+            ].map(tag => (
+              <span key={tag.label} className="flex items-center gap-1.5 bg-white/20 text-white text-xs px-3 py-1.5 rounded-full">
+                <tag.icon className="h-3 w-3" /> {tag.label}
+              </span>
             ))}
           </div>
           <div className="mt-8 bg-white/10 border border-white/20 rounded-2xl px-5 py-4">
@@ -449,10 +459,10 @@ const FarmerSignup: React.FC<{
 
           <div className="flex bg-gray-100 rounded-2xl p-1 mb-5 gap-1">
             <div className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold bg-[#2E7D32] text-white shadow-md">
-              <span>🧑‍🌾</span> Farmer
+              <Tractor className="h-4 w-4" /> Farmer
             </div>
             <Link to="/signup/shop-owner" className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:text-gray-700 transition-colors">
-              <span>🏪</span> Shop Owner
+              <Store className="h-4 w-4" /> Shop Owner
             </Link>
           </div>
 
@@ -570,7 +580,7 @@ const ShopOwnerSignup: React.FC<{
             </div>
           </div>
           <p className="text-white text-2xl font-bold leading-snug" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-            Start Selling<br /><span className="text-white">on KrishakMart 🏪</span>
+            Start Selling<br /><span className="text-white">on KrishakMart</span>
           </p>
           <p className="text-white/80 text-sm mt-3 leading-relaxed">
             List your products, reach thousands of farmers, and grow your agri business.
@@ -619,10 +629,10 @@ const ShopOwnerSignup: React.FC<{
 
           <div className="flex bg-gray-100 rounded-2xl p-1 mb-4 gap-1">
             <Link to="/signup/farmer" className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:text-gray-700 transition-colors">
-              <span>🧑‍🌾</span> Farmer
+              <Tractor className="h-4 w-4" /> Farmer
             </Link>
             <div className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold bg-[#FF9800] text-white shadow-md">
-              <span>🏪</span> Shop Owner
+              <Store className="h-4 w-4" /> Shop Owner
             </div>
           </div>
 
@@ -714,8 +724,10 @@ const ShopOwnerSignup: React.FC<{
                       }`}
                     />
                     {confirmPassword.length > 0 && (
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm">
-                        {confirmPassword === password ? '✅' : '❌'}
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2">
+                        {confirmPassword === password
+                          ? <CheckCircle className="h-4 w-4 text-green-500" />
+                          : <AlertCircle className="h-4 w-4 text-red-400" />}
                       </span>
                     )}
                   </div>

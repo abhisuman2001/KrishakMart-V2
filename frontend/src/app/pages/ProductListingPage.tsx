@@ -90,7 +90,10 @@ export const ProductListingPage: React.FC = () => {
                   <SelectItem value="all">All Categories</SelectItem>
                   {categories.map((cat) => (
                     <SelectItem key={cat.id} value={cat.id}>
-                      {cat.icon} {cat.name}
+                      <span className="flex items-center gap-2">
+                        <cat.icon className={`h-4 w-4 ${cat.color}`} />
+                        {cat.name}
+                      </span>
                     </SelectItem>
                   ))}
                 </SelectContent>

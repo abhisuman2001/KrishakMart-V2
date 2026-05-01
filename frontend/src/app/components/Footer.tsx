@@ -1,6 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Tractor, Phone, Mail, MapPin } from 'lucide-react';
+import { Tractor, Phone, Mail, MapPin, Sprout, FlaskConical, Bug, Wrench, Droplets, Beef, CheckCircle, Heart } from 'lucide-react';
+
+const categoryLinks = [
+  { id: 'seeds',       name: 'Seeds',         icon: Sprout,       color: 'text-green-300' },
+  { id: 'fertilizers', name: 'Fertilizers',   icon: FlaskConical, color: 'text-lime-300' },
+  { id: 'pesticides',  name: 'Pesticides',    icon: Bug,          color: 'text-orange-300' },
+  { id: 'tools',       name: 'Farming Tools', icon: Wrench,       color: 'text-blue-300' },
+  { id: 'irrigation',  name: 'Irrigation',    icon: Droplets,     color: 'text-cyan-300' },
+  { id: 'feed',        name: 'Animal Feed',   icon: Beef,         color: 'text-amber-300' },
+];
 
 export const Footer: React.FC = () => {
   return (
@@ -39,12 +48,14 @@ export const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Categories</h3>
             <ul className="space-y-2">
-              <li className="text-green-100 text-sm">🌱 Seeds</li>
-              <li className="text-green-100 text-sm">🌿 Fertilizers</li>
-              <li className="text-green-100 text-sm">🧴 Pesticides</li>
-              <li className="text-green-100 text-sm">🔧 Farming Tools</li>
-              <li className="text-green-100 text-sm">💧 Irrigation</li>
-              <li className="text-green-100 text-sm">🐄 Animal Feed</li>
+              {categoryLinks.map(({ id, name, icon: Icon, color }) => (
+                <li key={id}>
+                  <Link to={`/shop?category=${id}`} className="flex items-center gap-2 text-green-100 hover:text-white transition-colors text-sm group">
+                    <Icon className={`h-3.5 w-3.5 ${color} flex-shrink-0`} />
+                    {name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -74,24 +85,25 @@ export const Footer: React.FC = () => {
         {/* Trust Badges */}
         <div className="mt-8 pt-8 border-t border-[#56b886]">
           <div className="flex flex-wrap justify-center gap-6 mb-6">
-            <div className="bg-[#236240] px-4 py-2 rounded-lg text-center border border-[#b87a47]">
-              <div className="text-sm font-semibold">✓ Genuine Products</div>
-            </div>
-            <div className="bg-[#236240] px-4 py-2 rounded-lg text-center border border-[#b87a47]">
-              <div className="text-sm font-semibold">✓ Fast Delivery</div>
-            </div>
-            <div className="bg-[#236240] px-4 py-2 rounded-lg text-center border border-[#b87a47]">
-              <div className="text-sm font-semibold">✓ Farmer Friendly</div>
-            </div>
-            <div className="bg-[#236240] px-4 py-2 rounded-lg text-center border border-[#b87a47]">
-              <div className="text-sm font-semibold">✓ 24/7 Support</div>
-            </div>
+            {[
+              { icon: CheckCircle, label: 'Genuine Products' },
+              { icon: Tractor,     label: 'Fast Delivery' },
+              { icon: Heart,       label: 'Farmer Friendly' },
+              { icon: Phone,       label: '24/7 Support' },
+            ].map(({ icon: Icon, label }) => (
+              <div key={label} className="bg-[#236240] px-4 py-2 rounded-lg flex items-center gap-2 border border-[#b87a47]">
+                <Icon className="h-4 w-4 text-green-300 flex-shrink-0" />
+                <div className="text-sm font-semibold">{label}</div>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="text-center text-green-200 text-sm">
-          © 2026 KrishakMart. All rights reserved. | Made with ❤️ for Farmers
+        <div className="text-center text-green-200 text-sm flex items-center justify-center gap-1.5">
+          <span>© 2026 KrishakMart. All rights reserved.</span>
+          <span>·</span>
+          <span className="flex items-center gap-1">Made with <Heart className="h-3.5 w-3.5 text-red-400 fill-red-400" /> for Farmers</span>
         </div>
       </div>
     </footer>
