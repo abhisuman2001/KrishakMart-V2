@@ -121,7 +121,7 @@ export const Navbar: React.FC = () => {
                   type="text"
                   value={stickyQuery}
                   onChange={e => setStickyQuery(e.target.value)}
-                  placeholder="Search seeds, fertilizers, tools..."
+                  placeholder="Ask farming problems or search products..."
                   className="flex-1 px-4 py-2 text-sm text-gray-800 bg-white outline-none"
                 />
                 <button type="submit"

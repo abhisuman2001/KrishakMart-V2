@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Search, ShoppingBag, Store, ArrowRight, CheckCircle,
   Package, Clock, Truck, Shield, Tag, Zap,
+  UserPlus, ShoppingCart, Home, Tractor, Sprout, Gift, Bot,
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { categories, getProducts, getSellerProducts, Product } from '../../services/productService';
@@ -180,13 +181,18 @@ export const HomePage: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                placeholder="Search seeds, fertilizers, tools, pesticides..."
-                className="flex-1 px-5 py-4 text-base text-gray-800 outline-none bg-white"
+                placeholder="Ask farming problems or search products..."
+                className="flex-1 px-3 sm:px-5 py-3 sm:py-4 text-sm sm:text-base text-gray-800 outline-none bg-white min-w-0"
               />
               <button type="submit" className="bg-yellow-400 hover:bg-yellow-500 px-6 py-4 transition-colors font-semibold text-gray-900 flex items-center gap-2">
                 <Search className="h-5 w-5" /> Search
               </button>
             </form>
+            {/* AI hint */}
+            <p className="text-green-200 text-xs sm:text-sm mt-3 flex items-center justify-center gap-1.5">
+              <Bot className="h-3.5 w-3.5" />
+              Try: "गेहूं की पत्तियां पीली हो रही हैं" or "pest attack on tomato" — AI will diagnose &amp; recommend products
+            </p>
           </div>
 
           {/* Trust badges */}

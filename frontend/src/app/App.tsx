@@ -2,6 +2,8 @@ import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AppProvider, useApp } from './context/AppContext';
 import { Toaster } from './components/ui/sonner';
+import { AlertTriangle } from 'lucide-react';
+import { KrishiAIAssistant } from './components/KrishiAIAssistant';
 
 // Layout Components (keep these as regular imports)
 import { Navbar } from './components/Navbar';
@@ -561,6 +563,7 @@ function AppContent() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Toaster position="top-right" />
+      <KrishiAIAssistant />
     </Router>
   );
 }
