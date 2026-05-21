@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import User from '../models/User.model.js';
 import { generateToken } from '../middleware/auth.middleware.js';
 
@@ -10,7 +11,9 @@ export const register = async (req, res) => {
 
     // Check if user exists
     const userExists = await User.findOne({ phone });
+    console.log(`[REGISTER] Phone: ${phone}, Exists: ${!!userExists}, DB: ${mongoose.connection.name}, Host: ${mongoose.connection.host}`);
     if (userExists) {
+      console.log(`[REGISTER] Found existing user:`, userExists._id);
       return res.status(400).json({
         success: false,
         message: 'User with this phone number already exists'

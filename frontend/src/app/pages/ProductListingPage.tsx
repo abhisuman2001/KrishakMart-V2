@@ -69,28 +69,31 @@ export const ProductListingPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">All Products</h1>
-          <p className="text-xl text-gray-600">
+        <div className="mb-6 md:mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-1">All Products</h1>
+          <p className="text-base sm:text-xl text-gray-600">
             {filteredProducts.length} products available
           </p>
         </div>
 
         {/* Filters and Sort */}
-        <div className="bg-white rounded-xl p-6 shadow-md border-2 border-green-200 mb-8">
-          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-md border-2 border-green-200 mb-6 md:mb-8">
+          <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
             <div className="flex items-center gap-3">
-              <Filter className="h-5 w-5 text-green-600" />
-              <span className="font-semibold text-gray-800">Filters:</span>
+              <Filter className="h-5 w-5 text-green-600 flex-shrink-0" />
+              <span className="font-semibold text-gray-800 text-sm">Filters:</span>
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-[200px] border-2 border-green-300">
+                <SelectTrigger className="w-[160px] sm:w-[200px] border-2 border-green-300">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Categories</SelectItem>
                   {categories.map((cat) => (
                     <SelectItem key={cat.id} value={cat.id}>
-                      {cat.icon} {cat.name}
+                      <span className="flex items-center gap-2">
+                        <cat.icon className={`h-4 w-4 ${cat.color}`} />
+                        {cat.name}
+                      </span>
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -98,9 +101,9 @@ export const ProductListingPage: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="font-semibold text-gray-800">Sort by:</span>
+              <span className="font-semibold text-gray-800 text-sm">Sort by:</span>
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-[200px] border-2 border-green-300">
+                <SelectTrigger className="w-[160px] sm:w-[200px] border-2 border-green-300">
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>

@@ -134,8 +134,8 @@ export const ShopOwnerProfile: React.FC = () => {
           <div className="flex-1 min-w-0">
             <p className="text-lg font-bold text-gray-900 truncate">{user?.shopName || user?.name}</p>
             <p className="text-sm text-gray-500 truncate">{user?.name}</p>
-            <span className="inline-block text-xs font-semibold bg-orange-100 text-[#FF9800] px-2.5 py-0.5 rounded-full mt-1">
-              🏪 Shop Owner
+            <span className="inline-flex items-center gap-1 text-xs font-semibold bg-orange-100 text-[#FF9800] px-2.5 py-0.5 rounded-full mt-1">
+              <Store className="h-3 w-3" /> Shop Owner
             </span>
             {uploadingAvatar && <p className="text-xs text-gray-400 mt-1">Uploading photo...</p>}
           </div>

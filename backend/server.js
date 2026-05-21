@@ -68,17 +68,15 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/krishakmart';
 const PORT = process.env.PORT || 5000;
 
-let isConnected = false;
-
 const connectDB = async () => {
-  if (isConnected) return;
+  if (mongoose.connection.readyState === 1) return; // already connected
+  if (mongoose.connection.readyState === 2) return; // connecting in progress
   try {
     await mongoose.connect(MONGODB_URI, {
       serverSelectionTimeoutMS: 10000,
       socketTimeoutMS: 45000,
-      bufferCommands: false,       // fail fast instead of buffering
+      bufferCommands: false,
     });
-    isConnected = true;
     console.log('✅ MongoDB Connected');
     console.log(`📦 Database: ${mongoose.connection.name} | Host: ${mongoose.connection.host}`);
   } catch (err) {

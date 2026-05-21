@@ -58,27 +58,27 @@ export const HomePage: React.FC = () => {
     return (
       <div>
         {/* Hero */}
-        <section className="relative h-[350px] bg-gradient-to-r from-[#2f7c4f] to-[#236240] overflow-hidden">
+        <section className="relative h-[250px] sm:h-[350px] bg-gradient-to-r from-[#2f7c4f] to-[#236240] overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920')] bg-cover bg-center opacity-20" />
           <div className="relative max-w-7xl mx-auto px-4 lg:px-8 h-full flex items-center">
-            <div className="max-w-2xl space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold text-white">KrishakMart</h1>
-              <p className="text-xl font-semibold text-[#f5ede3] italic">Mitti Se Digital Tak</p>
-              <p className="text-base text-green-100">Manage your shop and grow your business.</p>
+            <div className="max-w-2xl space-y-2 sm:space-y-4">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white">KrishakMart</h1>
+              <p className="text-base sm:text-xl font-semibold text-[#f5ede3] italic">Mitti Se Digital Tak</p>
+              <p className="text-sm sm:text-base text-green-100">Manage your shop and grow your business.</p>
             </div>
           </div>
         </section>
 
         {/* My Products */}
-        <section className="py-12 bg-gradient-to-b from-[#f0f9f4] to-white">
+        <section className="py-8 sm:py-12 bg-gradient-to-b from-[#f0f9f4] to-white">
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex justify-between items-center mb-5 sm:mb-8">
               <div>
-                <h2 className="text-3xl font-bold text-gray-800">{t.myProductsSection}</h2>
-                <p className="text-gray-600">Manage your product inventory</p>
+                <h2 className="text-xl sm:text-3xl font-bold text-gray-800">{t.myProductsSection}</h2>
+                <p className="text-gray-600 text-sm">Manage your product inventory</p>
               </div>
               <Link to="/shop-owner/products">
-                <Button variant="outline" className="border-2 border-[#2f7c4f] text-[#2f7c4f] hover:bg-[#f0f9f4] gap-2 font-semibold">
+                <Button variant="outline" className="border-2 border-[#2f7c4f] text-[#2f7c4f] hover:bg-[#f0f9f4] gap-1 sm:gap-2 font-semibold text-sm px-3 sm:px-4">
                   {t.viewAll} <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
@@ -94,7 +94,7 @@ export const HomePage: React.FC = () => {
                 </Link>
               </div>
             ) : (
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
                 {products.slice(0, 4).map(product => (
                   <ProductCard key={product._id} product={product} />
                 ))}
@@ -104,15 +104,15 @@ export const HomePage: React.FC = () => {
         </section>
 
         {/* Pending Orders */}
-        <section className="py-12 bg-white">
+        <section className="py-8 sm:py-12 bg-white">
           <div className="max-w-7xl mx-auto px-4 lg:px-8">
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex justify-between items-center mb-5 sm:mb-8">
               <div>
-                <h2 className="text-3xl font-bold text-gray-800">{t.pendingOrdersSection}</h2>
-                <p className="text-gray-600">Orders waiting for your action</p>
+                <h2 className="text-xl sm:text-3xl font-bold text-gray-800">{t.pendingOrdersSection}</h2>
+                <p className="text-gray-600 text-sm">Orders waiting for your action</p>
               </div>
               <Link to="/shop-owner/orders">
-                <Button variant="outline" className="border-2 border-[#2f7c4f] text-[#2f7c4f] hover:bg-[#f0f9f4] gap-2 font-semibold">
+                <Button variant="outline" className="border-2 border-[#2f7c4f] text-[#2f7c4f] hover:bg-[#f0f9f4] gap-1 sm:gap-2 font-semibold text-sm px-3 sm:px-4">
                   {t.viewAllOrders} <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
@@ -125,7 +125,7 @@ export const HomePage: React.FC = () => {
                 <p className="text-xl text-gray-600">{t.noPendingOrders}</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
                 {pendingOrders.slice(0, 4).map(order => (
                   <div key={order._id} className="bg-white rounded-xl p-4 md:p-6 shadow-md border-2 border-orange-200 hover:border-orange-400 transition-all">
                     <div className="flex justify-between items-start mb-4">
@@ -162,16 +162,16 @@ export const HomePage: React.FC = () => {
       {/* ── Hero with Search ── */}
       <section className="bg-gradient-to-r from-[#2f7c4f] via-[#236240] to-[#1a4d30] relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920')] bg-cover bg-center opacity-10" />
-        <div className="relative max-w-7xl mx-auto px-4 lg:px-8 py-16 md:py-24">
-          <div className="text-center mb-10">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <img src="/krishakmart-logo.png" alt="KrishakMart" className="h-14 w-14" />
+        <div className="relative max-w-7xl mx-auto px-4 lg:px-8 py-10 sm:py-16 md:py-24">
+          <div className="text-center mb-7 sm:mb-10">
+            <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+              <img src="/krishakmart-logo.png" alt="KrishakMart" className="h-10 w-10 sm:h-14 sm:w-14" />
               <div className="text-left">
-                <h1 className="text-4xl md:text-5xl font-bold text-white leading-none">KrishakMart</h1>
-                <p className="text-green-200 italic text-lg">Mitti Se Digital Tak</p>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-none">KrishakMart</h1>
+                <p className="text-green-200 italic text-base sm:text-lg">Mitti Se Digital Tak</p>
               </div>
             </div>
-            <p className="text-green-100 text-lg md:text-xl max-w-2xl mx-auto mb-8">
+            <p className="text-green-100 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 px-2">
               Quality agricultural products delivered directly to farmers. Save time, grow better.
             </p>
 
@@ -182,10 +182,12 @@ export const HomePage: React.FC = () => {
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Ask farming problems or search products..."
+
                 className="flex-1 px-3 sm:px-5 py-3 sm:py-4 text-sm sm:text-base text-gray-800 outline-none bg-white min-w-0"
               />
-              <button type="submit" className="bg-yellow-400 hover:bg-yellow-500 px-6 py-4 transition-colors font-semibold text-gray-900 flex items-center gap-2">
-                <Search className="h-5 w-5" /> Search
+              <button type="submit" className="bg-yellow-400 hover:bg-yellow-500 px-4 sm:px-6 py-3 sm:py-4 transition-colors font-semibold text-gray-900 flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                <Search className="h-4 w-4 sm:h-5 sm:w-5" />
+                <span className="hidden sm:inline">Search</span>
               </button>
             </form>
             {/* AI hint */}
@@ -196,15 +198,15 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Trust badges */}
-          <div className="flex flex-wrap justify-center gap-4 mt-6">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mt-4 sm:mt-6">
             {[
               { icon: Truck, label: 'Fast Delivery' },
               { icon: Shield, label: 'Genuine Products' },
               { icon: Tag, label: 'Best Prices' },
               { icon: Zap, label: 'Easy Returns' },
             ].map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2 bg-white/10 backdrop-blur text-white px-4 py-2 rounded-full text-sm font-medium">
-                <Icon className="h-4 w-4 text-yellow-300" /> {label}
+              <div key={label} className="flex items-center gap-1.5 sm:gap-2 bg-white/10 backdrop-blur text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
+                <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-yellow-300" /> {label}
               </div>
             ))}
           </div>
@@ -212,23 +214,25 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ── Shop by Category ── */}
-      <section className="py-12 bg-white">
+      <section className="py-8 sm:py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Shop by Category</h2>
-              <p className="text-gray-500 text-sm mt-1">Find everything you need for your farm</p>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">Shop by Category</h2>
+              <p className="text-gray-500 text-xs sm:text-sm mt-1">Find everything you need for your farm</p>
             </div>
-            <Link to="/shop" className="text-[#2f7c4f] font-semibold text-sm flex items-center gap-1 hover:underline">
-              View All <ArrowRight className="h-4 w-4" />
+            <Link to="/shop" className="text-[#2f7c4f] font-semibold text-xs sm:text-sm flex items-center gap-1 hover:underline flex-shrink-0">
+              View All <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 sm:gap-3">
             {categories.map(cat => (
               <Link key={cat.id} to={`/shop?category=${cat.id}`}>
-                <div className="bg-gradient-to-b from-green-50 to-white rounded-xl border border-green-100 p-4 text-center hover:border-green-400 hover:shadow-md transition-all duration-200 group cursor-pointer">
-                  <div className="text-3xl mb-2 group-hover:scale-110 transition-transform duration-200">{cat.icon}</div>
-                  <p className="text-xs font-semibold text-gray-700 group-hover:text-green-700 transition-colors leading-tight">{cat.name}</p>
+                <div className="bg-gradient-to-b from-green-50 to-white rounded-xl border border-green-100 p-2.5 sm:p-4 text-center hover:border-green-400 hover:shadow-md transition-all duration-200 group cursor-pointer">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 ${cat.bg} rounded-xl flex items-center justify-center mx-auto mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-200`}>
+                    <cat.icon className={`h-5 w-5 sm:h-6 sm:w-6 ${cat.color}`} />
+                  </div>
+                  <p className="text-[10px] sm:text-xs font-semibold text-gray-700 group-hover:text-green-700 transition-colors leading-tight">{cat.name}</p>
                 </div>
               </Link>
             ))}
@@ -237,15 +241,15 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ── Featured Products ── */}
-      <section className="py-12 bg-gray-50">
+      <section className="py-8 sm:py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800">Featured Products</h2>
-              <p className="text-gray-500 text-sm mt-1">Top quality farming supplies</p>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">Featured Products</h2>
+              <p className="text-gray-500 text-xs sm:text-sm mt-1">Top quality farming supplies</p>
             </div>
-            <Link to="/shop" className="text-[#2f7c4f] font-semibold text-sm flex items-center gap-1 hover:underline">
-              View All <ArrowRight className="h-4 w-4" />
+            <Link to="/shop" className="text-[#2f7c4f] font-semibold text-xs sm:text-sm flex items-center gap-1 hover:underline flex-shrink-0">
+              View All <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </Link>
           </div>
           {loading ? (
@@ -263,7 +267,9 @@ export const HomePage: React.FC = () => {
             </div>
           ) : products.length === 0 ? (
             <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
-              <div className="text-5xl mb-4">🌾</div>
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Sprout className="h-8 w-8 text-green-500" />
+              </div>
               <p className="text-gray-600">No products available yet</p>
             </div>
           ) : (
@@ -284,55 +290,60 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ── Seasonal Offer Banner ── */}
-      <section className="py-10 bg-gradient-to-r from-[#b87a47] to-[#855132]">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">🎉 Seasonal Sale — Up to 30% Off!</h2>
-            <p className="text-white/90">Special discounts on seeds and fertilizers this season</p>
+      <section className="py-8 sm:py-10 bg-gradient-to-r from-[#b87a47] to-[#855132]">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
+              <Gift className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1">Seasonal Sale — Up to 30% Off!</h2>
+              <p className="text-white/90 text-sm sm:text-base">Special discounts on seeds and fertilizers this season</p>
+            </div>
           </div>
-          <Link to="/signup/farmer">
-            <Button size="lg" className="bg-white text-[#b87a47] hover:bg-[#f5ede3] font-semibold px-8 py-5">
-              Sign Up & Shop Now
+          <Link to="/signup/farmer" className="flex-shrink-0">
+            <Button size="lg" className="bg-white text-[#b87a47] hover:bg-[#f5ede3] font-semibold px-6 sm:px-8 py-4 sm:py-5">
+              Sign Up &amp; Shop Now
             </Button>
           </Link>
         </div>
       </section>
 
       {/* ── How to Order ── */}
-      <section className="py-16 bg-[#2f7c4f] text-white">
+      <section className="py-12 sm:py-16 bg-[#2f7c4f] text-white">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">How to Order</h2>
-            <p className="text-green-100 text-lg">Simple steps to get your farming supplies</p>
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">How to Order</h2>
+            <p className="text-green-100 text-base sm:text-lg">Simple steps to get your farming supplies</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 mb-8 sm:mb-12">
             {[
-              { step: '1', title: 'Create Account', desc: 'Sign up as a farmer for free', icon: '👤' },
-              { step: '2', title: 'Browse Products', desc: 'Search and select farming supplies', icon: '🔍' },
-              { step: '3', title: 'Add to Cart', desc: 'Choose quantity and place order', icon: '🛒' },
-              { step: '4', title: 'Receive at Home', desc: 'Get products at your doorstep', icon: '🏠' },
+              { step: '1', title: 'Create Account',   desc: 'Sign up as a farmer for free',          icon: UserPlus },
+              { step: '2', title: 'Browse Products',  desc: 'Search and select farming supplies',    icon: Search },
+              { step: '3', title: 'Add to Cart',      desc: 'Choose quantity and place order',       icon: ShoppingCart },
+              { step: '4', title: 'Receive at Home',  desc: 'Get products at your doorstep',         icon: Home },
             ].map(item => (
               <div key={item.step} className="text-center group">
-                <div className="bg-white text-[#2f7c4f] rounded-full w-20 h-20 flex items-center justify-center text-3xl font-bold mx-auto mb-4 group-hover:scale-110 transition-transform duration-200 shadow-lg">
-                  {item.icon}
+                <div className="bg-white text-[#2f7c4f] rounded-full w-14 h-14 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-200 shadow-lg">
+                  <item.icon className="h-6 w-6 sm:h-8 sm:w-8 text-[#2f7c4f]" />
                 </div>
-                <div className="bg-white/10 rounded-xl p-4">
-                  <div className="text-yellow-300 font-bold text-sm mb-1">Step {item.step}</div>
-                  <h3 className="text-lg font-bold mb-1">{item.title}</h3>
-                  <p className="text-green-100 text-sm">{item.desc}</p>
+                <div className="bg-white/10 rounded-xl p-3 sm:p-4">
+                  <div className="text-yellow-300 font-bold text-xs sm:text-sm mb-1">Step {item.step}</div>
+                  <h3 className="text-sm sm:text-lg font-bold mb-1">{item.title}</h3>
+                  <p className="text-green-100 text-xs sm:text-sm">{item.desc}</p>
                 </div>
               </div>
             ))}
           </div>
-          <div className="text-center flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="text-center flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link to="/signup/farmer">
-              <Button size="lg" className="bg-white text-[#2f7c4f] hover:bg-green-50 hover:scale-105 transition-all duration-300 text-lg px-8 py-6 font-bold shadow-lg gap-2">
-                🧑‍🌾 Sign Up as Farmer
+              <Button size="lg" className="w-full sm:w-auto bg-white text-[#2f7c4f] hover:bg-green-50 hover:scale-105 transition-all duration-300 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 font-bold shadow-lg gap-2">
+                <Tractor className="h-5 w-5" /> Sign Up as Farmer
               </Button>
             </Link>
             <Link to="/become-seller">
-              <Button size="lg" className="bg-yellow-400 hover:bg-yellow-300 text-gray-900 hover:scale-105 transition-all duration-300 text-lg px-8 py-6 font-bold shadow-lg gap-2">
-                🏪 Become a Seller
+              <Button size="lg" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-gray-900 hover:scale-105 transition-all duration-300 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 font-bold shadow-lg gap-2">
+                <Store className="h-5 w-5" /> Become a Seller
               </Button>
             </Link>
           </div>

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Lock, Globe, Leaf, ShoppingBag, ChevronDown, Eye, EyeOff,
   Phone, CheckCircle, AlertCircle, Tractor, ArrowRight,
+  Store, Sprout, Wrench, Droplets, Package, BarChart3, Truck, ShieldCheck,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { toast } from 'sonner';
@@ -183,7 +184,9 @@ export const LoginPage: React.FC = () => {
           </div>
 
           <p className="text-white text-2xl font-bold leading-snug mb-2" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-            {isFarmer ? <>Welcome Back,<br /><span className="text-yellow-300">Kisan! 🌾</span></> : <>Welcome Back,<br /><span className="text-white">Seller! 🏪</span></>}
+            {isFarmer
+              ? <>Welcome Back,<br /><span className="text-yellow-300">Kisan!</span></>
+              : <>Welcome Back,<br /><span className="text-white">Seller!</span></>}
           </p>
           <p className="text-white/80 text-sm mt-3 leading-relaxed">
             {isFarmer
@@ -205,10 +208,20 @@ export const LoginPage: React.FC = () => {
 
           <div className="flex flex-wrap justify-center gap-2 mt-6">
             {(isFarmer
-              ? ['🌱 Fresh Seeds', '🔧 Farm Tools', '💧 Irrigation']
-              : ['📦 Easy Listing', '📊 Analytics', '🚚 Fast Delivery']
+              ? [
+                  { icon: Sprout,   label: 'Fresh Seeds' },
+                  { icon: Wrench,   label: 'Farm Tools' },
+                  { icon: Droplets, label: 'Irrigation' },
+                ]
+              : [
+                  { icon: Package,  label: 'Easy Listing' },
+                  { icon: BarChart3,label: 'Analytics' },
+                  { icon: Truck,    label: 'Fast Delivery' },
+                ]
             ).map(tag => (
-              <span key={tag} className="bg-white/20 text-white text-xs px-3 py-1.5 rounded-full">{tag}</span>
+              <span key={tag.label} className="flex items-center gap-1.5 bg-white/20 text-white text-xs px-3 py-1.5 rounded-full">
+                <tag.icon className="h-3 w-3" /> {tag.label}
+              </span>
             ))}
           </div>
 
@@ -216,13 +229,13 @@ export const LoginPage: React.FC = () => {
             <p className="text-white/80 text-sm mb-3">New to KrishakMart?</p>
             <div className="flex gap-2 justify-center">
               <Link to="/signup/farmer">
-                <span className="inline-block bg-white text-[#2E7D32] font-bold text-xs px-4 py-2 rounded-xl hover:bg-green-50 transition-colors">
-                  🧑‍🌾 Join as Farmer
+                <span className="inline-flex items-center gap-1.5 bg-white text-[#2E7D32] font-bold text-xs px-4 py-2 rounded-xl hover:bg-green-50 transition-colors">
+                  <Tractor className="h-3.5 w-3.5" /> Join as Farmer
                 </span>
               </Link>
               <Link to="/signup/shop-owner">
-                <span className="inline-block bg-white/20 text-white font-bold text-xs px-4 py-2 rounded-xl hover:bg-white/30 transition-colors border border-white/30">
-                  🏪 Become Seller
+                <span className="inline-flex items-center gap-1.5 bg-white/20 text-white font-bold text-xs px-4 py-2 rounded-xl hover:bg-white/30 transition-colors border border-white/30">
+                  <Store className="h-3.5 w-3.5" /> Become Seller
                 </span>
               </Link>
             </div>
@@ -304,7 +317,7 @@ export const LoginPage: React.FC = () => {
                       : 'bg-[#FF9800] text-white shadow-md'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}>
-                <span>{r === 'farmer' ? '🧑‍🌾' : '🏪'}</span>
+                {r === 'farmer' ? <Tractor className="h-4 w-4" /> : <Store className="h-4 w-4" />}
                 {r === 'farmer' ? 'Farmer' : 'Shop Owner'}
               </button>
             ))}

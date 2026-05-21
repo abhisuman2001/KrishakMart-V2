@@ -300,7 +300,9 @@ export const ProductDetailsPage: React.FC = () => {
   if (!product) return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="text-center">
-        <div className="text-5xl mb-4">🌾</div>
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Package className="h-8 w-8 text-green-500" />
+        </div>
         <h2 className="text-xl font-bold text-gray-700 mb-2">Product not found</h2>
         <button onClick={() => navigate(-1)} className="text-[#2E7D32] hover:underline">Go back</button>
       </div>
@@ -466,7 +468,11 @@ export const ProductDetailsPage: React.FC = () => {
                 </div>
                 <p className="text-xs text-gray-500 mt-1">Inclusive of all taxes</p>
                 <p className={`text-sm mt-2 font-semibold ${product.stock > 20 ? 'text-[#2E7D32]' : product.stock > 0 ? 'text-[#FF9800]' : 'text-red-600'}`}>
-                  {product.stock > 20 ? '✓ In Stock' : product.stock > 0 ? `⚠ Only ${product.stock} left — order soon!` : '✗ Out of Stock'}
+                  {product.stock > 20
+                    ? <span className="flex items-center gap-1"><CheckCircle className="h-4 w-4" /> In Stock</span>
+                    : product.stock > 0
+                    ? <span className="flex items-center gap-1"><AlertCircle className="h-4 w-4" /> Only {product.stock} left — order soon!</span>
+                    : <span className="flex items-center gap-1"><X className="h-4 w-4" /> Out of Stock</span>}
                 </p>
               </div>
 

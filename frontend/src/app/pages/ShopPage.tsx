@@ -119,31 +119,31 @@ export const ShopPage: React.FC = () => {
         </Button>
 
         {/* Shop Header */}
-        <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-green-200 mb-8">
-          <div className="flex items-start gap-6">
-            <div className="bg-green-100 p-6 rounded-full">
-              <Store className="h-12 w-12 text-green-600" />
+        <div className="bg-white rounded-xl p-4 sm:p-6 md:p-8 shadow-lg border-2 border-green-200 mb-6 md:mb-8">
+          <div className="flex items-start gap-3 sm:gap-6">
+            <div className="bg-green-100 p-3 sm:p-6 rounded-full flex-shrink-0">
+              <Store className="h-7 w-7 sm:h-12 sm:w-12 text-green-600" />
             </div>
-            <div className="flex-1">
-              <h1 className="text-4xl font-bold text-gray-800 mb-2">{shopName}</h1>
-              <div className="space-y-2 text-gray-600">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-2 truncate">{shopName}</h1>
+              <div className="space-y-1.5 text-gray-600">
                 {sellerInfo?.shopAddress && (
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4" />
-                    <span>{sellerInfo.shopAddress}</span>
+                  <div className="flex items-start gap-2 text-sm">
+                    <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5" />
+                    <span className="break-words">{sellerInfo.shopAddress}</span>
                   </div>
                 )}
                 {sellerInfo?.phone && (
-                  <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4" />
+                  <div className="flex items-center gap-2 text-sm">
+                    <Phone className="h-4 w-4 flex-shrink-0" />
                     <span>{sellerInfo.phone}</span>
                   </div>
                 )}
               </div>
-              <div className="mt-4 flex items-center gap-4">
-                <div className="bg-green-50 px-4 py-2 rounded-lg">
-                  <span className="text-2xl font-bold text-green-600">{products.length}</span>
-                  <span className="text-gray-600 ml-2">Products</span>
+              <div className="mt-3 flex items-center gap-4">
+                <div className="bg-green-50 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg">
+                  <span className="text-lg sm:text-2xl font-bold text-green-600">{products.length}</span>
+                  <span className="text-gray-600 ml-2 text-sm">Products</span>
                 </div>
               </div>
             </div>
@@ -151,12 +151,15 @@ export const ShopPage: React.FC = () => {
         </div>
 
         {/* Filters and Sort */}
-        <div className="bg-white rounded-xl p-6 shadow-md border-2 border-green-200 mb-8">
-          <div className="flex items-center gap-4 flex-wrap">
-            <Filter className="h-5 w-5 text-gray-600" />
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-md border-2 border-green-200 mb-6 md:mb-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-2">
+              <Filter className="h-5 w-5 text-gray-600" />
+              <span className="text-sm font-medium text-gray-600">Filters</span>
+            </div>
             
             {/* Category Filter */}
-            <div className="flex-1 min-w-[200px]">
+            <div className="w-full sm:flex-1 sm:min-w-[160px] sm:max-w-[220px]">
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                 <SelectTrigger>
                   <SelectValue placeholder="All Categories" />
@@ -165,7 +168,10 @@ export const ShopPage: React.FC = () => {
                   <SelectItem value="all">All Categories</SelectItem>
                   {categories.map((cat) => (
                     <SelectItem key={cat.id} value={cat.id}>
-                      {cat.icon} {cat.name}
+                      <span className="flex items-center gap-2">
+                        <cat.icon className={`h-4 w-4 ${cat.color}`} />
+                        {cat.name}
+                      </span>
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -173,7 +179,7 @@ export const ShopPage: React.FC = () => {
             </div>
 
             {/* Sort */}
-            <div className="flex-1 min-w-[200px]">
+            <div className="w-full sm:flex-1 sm:min-w-[160px] sm:max-w-[220px]">
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger>
                   <SelectValue placeholder="Sort by" />

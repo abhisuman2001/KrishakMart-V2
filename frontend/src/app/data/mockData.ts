@@ -32,12 +32,12 @@ export interface Order {
 }
 
 export const categories = [
-  { id: 'seeds', name: 'Seeds', icon: '🌱' },
-  { id: 'fertilizers', name: 'Fertilizers', icon: '🌿' },
-  { id: 'pesticides', name: 'Pesticides', icon: '🧴' },
-  { id: 'tools', name: 'Farming Tools', icon: '🔧' },
-  { id: 'irrigation', name: 'Irrigation', icon: '💧' },
-  { id: 'feed', name: 'Animal Feed', icon: '🐄' },
+  { id: 'seeds',       name: 'Seeds',         icon: 'Sprout',       color: 'text-green-600',  bg: 'bg-green-100' },
+  { id: 'fertilizers', name: 'Fertilizers',   icon: 'FlaskConical', color: 'text-lime-600',   bg: 'bg-lime-100' },
+  { id: 'pesticides',  name: 'Pesticides',    icon: 'Bug',          color: 'text-orange-600', bg: 'bg-orange-100' },
+  { id: 'tools',       name: 'Farming Tools', icon: 'Wrench',       color: 'text-blue-600',   bg: 'bg-blue-100' },
+  { id: 'irrigation',  name: 'Irrigation',    icon: 'Droplets',     color: 'text-cyan-600',   bg: 'bg-cyan-100' },
+  { id: 'feed',        name: 'Animal Feed',   icon: 'Beef',         color: 'text-amber-600',  bg: 'bg-amber-100' },
 ];
 
 export const products: Product[] = [

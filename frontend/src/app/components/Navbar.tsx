@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   ShoppingCart, User, Menu, Phone, Globe, ShoppingBag,
   Heart, Settings, X, Send, ChevronDown, LayoutDashboard,
-  Package, LogOut, Home, Store, Search,
+  Package, LogOut, Home, Store, Search, Tractor, ShieldCheck,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { Button } from './ui/button';
@@ -112,11 +112,11 @@ export const Navbar: React.FC = () => {
             </div>
           </Link>
 
-          {/* Sticky search — appears on homepage after scrolling past hero */}
+          {/* Sticky search — appears on homepage after scrolling past hero (desktop/tablet only) */}
           {isHomePage && isGuest && (
             <form onSubmit={handleStickySearch}
-              className={`flex-1 max-w-xl mx-3 transition-all duration-300 ${showStickySearch ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
-              <div className="flex rounded-lg overflow-hidden shadow-sm">
+              className={`hidden sm:flex flex-1 max-w-xl mx-3 transition-all duration-300 ${showStickySearch ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
+              <div className="flex rounded-lg overflow-hidden shadow-sm w-full">
                 <input
                   type="text"
                   value={stickyQuery}
@@ -132,14 +132,14 @@ export const Navbar: React.FC = () => {
             </form>
           )}
 
-          {/* Spacer when no sticky search */}
-          {!(isHomePage && isGuest) && <div className="flex-1" />}
+          {/* Spacer */}
+          <div className="flex-1" />
 
-          {/* Right Actions */}
-          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+          {/* Right Actions — desktop/tablet */}
+          <div className="hidden sm:flex items-center gap-1 sm:gap-2 shrink-0">
 
             {/* Language */}
-            <div className="relative hidden sm:block" ref={langRef}>
+            <div className="relative" ref={langRef}>
               <button onClick={() => setLangOpen(!langOpen)}
                 className="flex items-center gap-1 text-white hover:text-green-200 transition-colors px-2 py-1.5 rounded-lg hover:bg-green-700 text-xs">
                 <Globe className="h-4 w-4" />
@@ -161,12 +161,12 @@ export const Navbar: React.FC = () => {
 
             {/* Support */}
             <button onClick={() => setSupportOpen(true)}
-              className="hidden sm:flex items-center gap-1 text-white hover:text-green-200 px-2 py-1.5 rounded-lg hover:bg-green-700 transition-colors text-xs">
+              className="flex items-center gap-1 text-white hover:text-green-200 px-2 py-1.5 rounded-lg hover:bg-green-700 transition-colors text-xs">
               <Phone className="h-4 w-4" />
               <span className="hidden md:inline">{t.support}</span>
             </button>
 
-            {/* Wishlist — shown for guests (localStorage) and logged-in farmers, hidden on become-seller page */}
+            {/* Wishlist */}
             {!isShopOwner && !isBecomeSeller && (
               <Link to={isGuest ? '/shop' : '/farmer/wishlist'}
                 className="relative flex items-center gap-1 text-white hover:text-green-200 px-2 py-1.5 rounded-lg hover:bg-green-700 transition-colors">
@@ -194,7 +194,7 @@ export const Navbar: React.FC = () => {
               </Link>
             )}
 
-            {/* Auth: guest shows Login + Sign Up, logged in shows profile dropdown */}
+            {/* Auth: guest shows Login + Sign Up */}
             {isGuest ? (
               <div className="flex items-center gap-2">
                 <Link to="/login">
@@ -203,7 +203,7 @@ export const Navbar: React.FC = () => {
                   </button>
                 </Link>
                 <Link to="/signup/farmer">
-                  <button className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 transition-all px-3 py-1.5 rounded-lg text-sm font-semibold hidden sm:block">
+                  <button className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 transition-all px-3 py-1.5 rounded-lg text-sm font-semibold">
                     {t.signUp}
                   </button>
                 </Link>
@@ -233,14 +233,18 @@ export const Navbar: React.FC = () => {
                         <div className="flex-1 min-w-0">
                           <p className="text-white font-semibold text-sm truncate">{user?.name}</p>
                           <p className="text-green-200 text-xs">{user?.phone}</p>
-                          <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full mt-1 ${
+                          <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full mt-1 ${
                             user?.role === 'admin'
                               ? 'bg-red-500 text-white'
                               : user?.role === 'shopOwner'
                               ? 'bg-yellow-400 text-gray-900'
                               : 'bg-green-900 text-green-100'
                           }`}>
-                            {user?.role === 'shopOwner' ? '🏪 Shop Owner' : user?.role === 'admin' ? '🛡️ Admin' : '🧑‍🌾 Farmer'}
+                            {user?.role === 'shopOwner'
+                              ? <><Store className="h-2.5 w-2.5" /> Shop Owner</>
+                              : user?.role === 'admin'
+                              ? <><ShieldCheck className="h-2.5 w-2.5" /> Admin</>
+                              : <><Tractor className="h-2.5 w-2.5" /> Farmer</>}
                           </span>
                         </div>
                       </div>
@@ -298,11 +302,25 @@ export const Navbar: React.FC = () => {
                 )}
               </div>
             )}
+          </div>
 
-            {/* Mobile hamburger */}
+          {/* Mobile right side — cart badge (logged in) + hamburger */}
+          <div className="flex sm:hidden items-center gap-1 shrink-0">
+            {/* Cart icon on mobile for logged-in non-shopowners */}
+            {!isGuest && !isShopOwner && (
+              <Link to="/cart" className="relative text-white p-1.5 rounded-lg hover:bg-green-700 transition-colors">
+                <ShoppingCart className="h-5 w-5" />
+                {cart.length > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 bg-yellow-400 text-gray-900 text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">
+                    {cart.length}
+                  </span>
+                )}
+              </Link>
+            )}
+            {/* Hamburger */}
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-white p-1.5 rounded-lg hover:bg-green-700 transition-colors">
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              className="text-white p-1.5 rounded-lg hover:bg-green-700 transition-colors">
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
@@ -310,19 +328,61 @@ export const Navbar: React.FC = () => {
 
       {/* ── Mobile Menu ── */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#236240] border-t border-green-600 px-4 py-3 space-y-1">
+        <div className="sm:hidden bg-[#236240] border-t border-green-600 px-4 py-3 space-y-1">
           <Link to="/" onClick={() => setMobileMenuOpen(false)}
             className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-100 hover:bg-green-700 transition-colors">
             <Home className="h-4 w-4" /> {t.home}
           </Link>
+
+          {/* Guest links */}
           {isGuest && (
             <>
               <Link to="/shop" onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-100 hover:bg-green-700 transition-colors">
                 <ShoppingBag className="h-4 w-4" /> Shop
               </Link>
+              <div className="border-t border-green-600 pt-3 mt-2 space-y-2">
+                <Link to="/login" onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center w-full px-4 py-3 rounded-xl text-sm font-semibold text-white border border-white/50 hover:bg-white hover:text-[#2f7c4f] transition-all">
+                  {t.login}
+                </Link>
+                <Link to="/signup/farmer" onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center w-full px-4 py-3 rounded-xl text-sm font-semibold bg-yellow-400 hover:bg-yellow-500 text-gray-900 transition-all">
+                  🧑‍🌾 {t.signUp}
+                </Link>
+              </div>
             </>
           )}
+
+          {/* Farmer links */}
+          {user?.role === 'farmer' && (
+            <>
+              <Link to="/farmer/store" onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-100 hover:bg-green-700 transition-colors">
+                <Store className="h-4 w-4" /> Store
+              </Link>
+              <Link to="/farmer/orders" onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-100 hover:bg-green-700 transition-colors">
+                <ShoppingBag className="h-4 w-4" /> {t.orders}
+              </Link>
+              <Link to="/farmer/wishlist" onClick={() => setMobileMenuOpen(false)}
+                className="relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-100 hover:bg-green-700 transition-colors">
+                <Heart className="h-4 w-4" /> Wishlist
+                {wishlist.length > 0 && <span className="ml-auto bg-red-500 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">{wishlist.length}</span>}
+              </Link>
+              <Link to="/cart" onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-100 hover:bg-green-700 transition-colors">
+                <ShoppingCart className="h-4 w-4" /> {t.myCart}
+                {cart.length > 0 && <span className="ml-auto bg-yellow-400 text-gray-900 text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">{cart.length}</span>}
+              </Link>
+              <Link to="/farmer/dashboard" onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-100 hover:bg-green-700 transition-colors">
+                <LayoutDashboard className="h-4 w-4" /> {t.dashboard}
+              </Link>
+            </>
+          )}
+
+          {/* Shop Owner links */}
           {isShopOwner && (
             <>
               <Link to="/shop-owner/dashboard" onClick={() => setMobileMenuOpen(false)}
@@ -339,7 +399,18 @@ export const Navbar: React.FC = () => {
               </Link>
             </>
           )}
-          {/* Language switcher in mobile */}
+
+          {/* Admin links */}
+          {user?.role === 'admin' && (
+            <>
+              <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-green-100 hover:bg-green-700 transition-colors">
+                <LayoutDashboard className="h-4 w-4" /> {t.dashboard}
+              </Link>
+            </>
+          )}
+
+          {/* Language switcher */}
           <div className="border-t border-green-600 pt-2 mt-2">
             <p className="text-green-300 text-xs px-3 mb-1">Language</p>
             <div className="flex gap-2 px-3">
@@ -351,10 +422,21 @@ export const Navbar: React.FC = () => {
               ))}
             </div>
           </div>
+
           <button onClick={() => { setSupportOpen(true); setMobileMenuOpen(false); }}
             className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-green-100 hover:bg-green-700 transition-colors">
             <Phone className="h-4 w-4" /> {t.support}
           </button>
+
+          {/* Logout for logged-in users */}
+          {!isGuest && (
+            <div className="border-t border-green-600 pt-2 mt-2">
+              <button onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
+                className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-red-300 hover:bg-red-900/30 transition-colors">
+                <LogOut className="h-4 w-4" /> {t.logout}
+              </button>
+            </div>
+          )}
         </div>
       )}
 

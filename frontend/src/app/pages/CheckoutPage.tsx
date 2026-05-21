@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Lock, ChevronLeft, MapPin, CreditCard, CheckCircle,
   ShoppingBag, Truck, Shield, Phone, User, Home,
-  Building, AlertCircle, Loader2,
+  Building, AlertCircle, Loader2, Banknote, Smartphone, Building2,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { LocationPicker, LocationData } from '../components/LocationPicker';
@@ -196,10 +196,10 @@ const PaymentForm: React.FC<{
   orderError?: string;
 }> = ({ method, onMethodChange, onBack, onPlace, loading, total, orderError }) => {
   const options = [
-    { id: 'COD',  label: 'Cash on Delivery',    sub: 'Pay when your order arrives', icon: '💵' },
-    { id: 'UPI',  label: 'UPI / PhonePe / GPay', sub: 'Instant payment via UPI',    icon: '📱' },
-    { id: 'CARD', label: 'Credit / Debit Card',  sub: 'Visa, Mastercard, RuPay',    icon: '💳' },
-    { id: 'NB',   label: 'Net Banking',          sub: 'All major banks supported',  icon: '🏦' },
+    { id: 'COD',  label: 'Cash on Delivery',    sub: 'Pay when your order arrives', icon: Banknote,    iconColor: 'text-green-600',  iconBg: 'bg-green-100' },
+    { id: 'UPI',  label: 'UPI / PhonePe / GPay', sub: 'Instant payment via UPI',    icon: Smartphone,  iconColor: 'text-blue-600',   iconBg: 'bg-blue-100' },
+    { id: 'CARD', label: 'Credit / Debit Card',  sub: 'Visa, Mastercard, RuPay',    icon: CreditCard,  iconColor: 'text-purple-600', iconBg: 'bg-purple-100' },
+    { id: 'NB',   label: 'Net Banking',          sub: 'All major banks supported',  icon: Building2,   iconColor: 'text-orange-600', iconBg: 'bg-orange-100' },
   ];
   return (
     <div className="space-y-4">
@@ -209,7 +209,9 @@ const PaymentForm: React.FC<{
             className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left ${
               method === opt.id ? 'border-[#2E7D32] bg-green-50' : 'border-gray-200 hover:border-gray-300 bg-white'
             }`}>
-            <span className="text-2xl">{opt.icon}</span>
+            <div className={`w-10 h-10 ${opt.iconBg} rounded-xl flex items-center justify-center flex-shrink-0`}>
+              <opt.icon className={`h-5 w-5 ${opt.iconColor}`} />
+            </div>
             <div className="flex-1">
               <p className={`font-semibold text-sm ${method === opt.id ? 'text-[#2E7D32]' : 'text-gray-800'}`}>{opt.label}</p>
               <p className="text-xs text-gray-500">{opt.sub}</p>
