@@ -4,6 +4,7 @@ import {
   ShoppingCart, Heart, Star, Store, Minus, Plus, Check, ChevronLeft, ChevronRight,
   X, ZoomIn, Send, Shield, Truck, RotateCcw, Award, MapPin, Package,
   MessageCircle, ChevronDown, ChevronUp, Play, BadgeCheck, Leaf,
+  CheckCircle, AlertCircle,
 } from 'lucide-react';
 import { getProduct, getProducts, Product } from '../../services/productService';
 import { getProductReviews, addReview, checkCanReview, Review } from '../../services/reviewService';
